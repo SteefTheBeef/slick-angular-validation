@@ -2,6 +2,7 @@ Angular Validate
 ============
 
 Writing form validation in AngularJS is boring and requires to much code which will clutter your html-templates.
+
 Angular Validate is a lib for making form validation in AngularJS less cumbersome.
 
 Requirements
@@ -74,6 +75,24 @@ Field should be different to the other field/model.
 ```html
  <input type="text" ng-model="data.firstName" name="firstName">
  <input type="text" ng-model="data.lastName" name="lastName" validate="different:data.firstName">
+```
+
+##### email
+Field should contain a valid email address.
+```html
+ <input type="text" ng-model="data.email" name="email" validate="email">
+```
+
+##### email
+Field should contain a valid email address.
+```html
+ <input type="text" ng-model="data.email" name="email" validate="email">
+```
+
+##### email
+Field should contain a valid email address.
+```html
+ <input type="text" ng-model="data.email" name="email" validate="email">
 ```
 
 
