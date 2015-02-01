@@ -2,7 +2,6 @@ Angular Validate
 ============
 
 Writing form validation in AngularJS is boring and requires to much code which will clutter your html-templates.
-
 Angular Validate is a lib for making form validation in AngularJS less cumbersome.
 
 Requirements
@@ -71,6 +70,7 @@ Field should be a valid date
 
 ##### different
 Should be used together with another field/model.
+
 Field should be different to the other field/model.
 ```html
  <input type="text" ng-model="data.firstName" name="firstName">
