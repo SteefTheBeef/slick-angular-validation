@@ -9,3 +9,26 @@ Requirements
 * AngularJS
 * jQuery
 
+Implemented rules so far
+-------
+* accepted
+* alpha
+* alphaDash
+* alphaNumeric
+* boolean
+* date
+* different
+* inString
+* email
+* match
+* max
+* maxDate
+* maxLength
+* min
+* minDate
+* minLength
+* number
+* regex
+* required
+* requiredIf
+
