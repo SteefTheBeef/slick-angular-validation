@@ -38,6 +38,12 @@ Validates if 'true' or 1
  <input type="checkbox" ng-model="data.terms" name="Terms & Conditions" validate="accepted">
 ```
 
+##### alpha
+Validates if field only contains alphabetic characters
+```html
+ <input type="checkbox" ng-model="data.terms" name="Terms & Conditions" validate="accepted">
+```
+
 
 
 
