@@ -90,11 +90,30 @@ case insensitive.
 ```
 
 ##### match
-Field should match the supplied model <br/>
+Field should match the value of the supplied model <br/>
 case insensitive.
 ```html
  <input type="text" ng-model="data.password" name="password" />
- <input type="text" ng-model="data.passwordConfirmation"  name="passwordConfirmation" validate="match:data.password" />
+ <input type="text" ng-model="data.passwordConfirmation" name="passwordConfirmation" validate="match:data.password" />
+```
+
+##### max
+Field value cannot be greater than the supplied max value.
+```html
+ <input type="text" ng-model="data.max" name="max" validate="max:3"/>
+```
+
+##### maxDate
+Field value cannot be greater than the supplied max date.
+Could be used effectively with minDate to validate a dateSpan.
+```html
+<input type="date" ng-model="data.date1" name="date1" validate="maxDate:data.date2">
+```
+
+##### maxLength
+Field value should not exceed the supplied max length
+```html
+<input type="text" ng-model="data.maxLength" name="maxLength" validate="maxLength:3">
 ```
 
 

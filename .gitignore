@@ -1,4 +1,5 @@
 /build
 /.idea
+/src/app.coffee
 index.html
 compiled.html
