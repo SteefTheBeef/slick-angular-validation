@@ -29,6 +29,11 @@ obj = {
 
   compile: () ->
     gulp.src(files.build.js)
+    .pipe(concat('angular-validate.js'))
+    .pipe(gulp.dest('./dist/'))
+    .on 'error', (err) ->
+
+    gulp.src(files.build.js)
     .pipe(concat('angular-validate.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./dist/'))
