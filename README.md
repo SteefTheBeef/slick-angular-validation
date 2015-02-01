@@ -39,10 +39,30 @@ Validates if 'true' or 1
 ```
 
 ##### alpha
-Validates if field only contains alphabetic characters
+Field should only contain alphabetic characters
 ```html
- <input type="checkbox" ng-model="data.terms" name="Terms & Conditions" validate="accepted">
+ <input type="text" ng-model="data.userName" name="userName" validate="alpha">
 ```
+
+##### alphaDash
+Field should only contain letters, numbers, underscores and dashes
+```html
+ <input type="text" ng-model="data.userName" name="userName" validate="alphaDash">
+```
+
+##### alphaNumeric
+Field should only contain letters and numbers
+```html
+ <input type="text" ng-model="data.userName" name="userName" validate="alphaDash">
+```
+
+##### boolean
+Field should have any of the values: true, false, 1, 0
+```html
+ <input type="text" ng-model="data.userName" name="userName" validate="boolean">
+```
+
+
 
 
 
