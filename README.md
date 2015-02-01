@@ -69,8 +69,7 @@ Field should be a valid date
 ```
 
 ##### different
-Should be used together with another field/model.
-
+Should be used together with another field/model.  
 Field should be different to the other field/model.
 ```html
  <input type="text" ng-model="data.firstName" name="firstName">
