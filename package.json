@@ -1,9 +1,10 @@
 {
   "author": "Stefan Hellström",
-  "name": "ngValidate",
+  "name": "angular-validate",
+  "description": "Easy form validation for AngualarJS",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/SteefTheBeef/angular-validate.git"
   },
   "dependencies": {
     "bower": "*",
