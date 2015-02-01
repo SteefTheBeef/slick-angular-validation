@@ -94,7 +94,7 @@ Field should match the supplied model <br/>
 case insensitive.
 ```html
  <input type="text" ng-model="data.password" name="password" />
- <input type="text" ng-model="data.passwordConfirmation" name="passwordConfirmation" validate="match:data.password" />
+ <input type="text" ng-model="data.passwordConfirmation"  name="passwordConfirmation" validate="match:data.password" />
 ```
 
 
