@@ -35,45 +35,45 @@ Implemented rules so far
 ##### accepted
 Validates if 'true' or 1
 ```html
- <input type="checkbox" ng-model="data.terms" name="Terms & Conditions" validate="accepted">
+ <input type="checkbox" ng-model="data.terms" name="Terms & Conditions" validate="accepted" />
 ```
 
 ##### alpha
 Field should only contain alphabetic characters
 ```html
- <input type="text" ng-model="data.userName" name="userName" validate="alpha">
+ <input type="text" ng-model="data.userName" name="userName" validate="alpha" />
 ```
 
 ##### alphaDash
 Field should only contain letters, numbers, underscores and dashes
 ```html
- <input type="text" ng-model="data.userName" name="userName" validate="alphaDash">
+ <input type="text" ng-model="data.userName" name="userName" validate="alphaDash" />
 ```
 
 ##### alphaNumeric
 Field should only contain letters and numbers
 ```html
- <input type="text" ng-model="data.userName" name="userName" validate="alphaDash">
+ <input type="text" ng-model="data.userName" name="userName" validate="alphaDash" />
 ```
 
 ##### boolean
 Field should have any of the values: true, false, 1, 0
 ```html
- <input type="text" ng-model="data.trueOrFalse" name="TrueOrFalse" validate="boolean">
+ <input type="text" ng-model="data.trueOrFalse" name="TrueOrFalse" validate="boolean" />
 ``````
 
 ##### date
 Field should be a valid date
 ```html
- <input type="text" ng-model="data.startDate" name="startDate" validate="date">
+ <input type="text" ng-model="data.startDate" name="startDate" validate="date" />
 ```
 
 ##### different
 Should be used together with another field/model.<br/>
 Field should be different to the other field/model.
 ```html
- <input type="text" ng-model="data.firstName" name="firstName">
- <input type="text" ng-model="data.lastName" name="lastName" validate="different:data.firstName">
+ <input type="text" ng-model="data.firstName" name="firstName" />
+ <input type="text" ng-model="data.lastName" name="lastName" validate="different:data.firstName" />
 ```
 
 ##### email
@@ -82,16 +82,19 @@ Field should contain a valid email address.
  <input type="text" ng-model="data.email" name="email" validate="email">
 ```
 
-##### email
-Field should contain a valid email address.
+##### inString
+Validates if value is found within the supplied model. <br/>
+case insensitive.
 ```html
- <input type="text" ng-model="data.email" name="email" validate="email">
+ <input type="text" ng-model="data.abbr" name="abbr" validate="inString:data.fullText" />
 ```
 
-##### email
-Field should contain a valid email address.
+##### match
+Field should match the supplied model <br/>
+case insensitive.
 ```html
- <input type="text" ng-model="data.email" name="email" validate="email">
+ <input type="text" ng-model="data.password" name="password" />
+ <input type="text" ng-model="data.passwordConfirmation" name="passwordConfirmation" validate="match:data.password" />
 ```
 
 
