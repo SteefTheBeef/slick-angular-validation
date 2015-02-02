@@ -96,7 +96,6 @@ angular.module('angular-validate', ['angular-validate.rules', 'angular-validate.
             else
               toggleItem(validationKey, 'none')
 
-
           setIsValid = (key, isValid) ->
             modelCtrl.$setValidity(key, isValid)
 

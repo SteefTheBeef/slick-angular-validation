@@ -110,12 +110,53 @@ Could be used effectively with minDate to validate a dateSpan.
 ```
 
 ##### maxLength
-Field value should not exceed the supplied max length
+Field character count should not exceed the supplied max length
 ```html
 <input type="text" ng-model="data.maxLength" name="maxLength" validate="maxLength:3">
 ```
 
+##### min
+Field value cannot be less than the supplied min value.
+```html
+ <input type="text" ng-model="data.min" name="min" validate="min:3"/>
+```
 
+##### minDate
+Field value cannot be less than the supplied min date.
+Could be used effectively with maxDate to validate a dateSpan.
+```html
+<input type="date" ng-model="data.date2" name="date2" validate="minDate:data.date1">
+```
+
+##### minLength
+Field character length should not be less than supplied min length
+```html
+<input type="text" ng-model="data.address" name="address" validate="minLength:5">
+```
+
+##### number
+Field value should be a number
+```html
+<input type="text" ng-model="data.address" name="address" validate="minLength:5">
+```
+
+##### regex
+Field value should contain supplied regex pattern
+```html
+<input type="text" ng-model="data.address" name="address" validate="regex:[A-Z]">
+```
+
+##### required
+Field is required
+```html
+<input type="text" ng-model="data.address" name="address" validate="minLength:5">
+```
+
+##### requiredIf
+Field is required if supplied model has the specified value
+```html
+<input type="text" ng-model="data.address" name="address" validate="minLength:5">
+```
 
 
 
