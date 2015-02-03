@@ -131,13 +131,13 @@ Could be used effectively with maxDate to validate a dateSpan.
 ##### minLength
 Field character length should not be less than supplied min length
 ```html
-<input type="text" ng-model="data.address" name="address" validate="minLength:5">
+<input type="text" ng-model="data.username" name="username" validate="minLength:5">
 ```
 
 ##### number
 Field value should be a number
 ```html
-<input type="text" ng-model="data.address" name="address" validate="minLength:5">
+<input type="text" ng-model="data.sum" name="sum" validate="number">
 ```
 
 ##### regex
@@ -149,13 +149,13 @@ Field value should contain supplied regex pattern
 ##### required
 Field is required
 ```html
-<input type="text" ng-model="data.address" name="address" validate="minLength:5">
+<input type="text" ng-model="data.zip" name="zip" validate="required">
 ```
 
 ##### requiredIf
 Field is required if supplied model has the specified value
 ```html
-<input type="text" ng-model="data.address" name="address" validate="minLength:5">
+<input type="text" ng-model="data.address" name="address" validate="requiredIf:data.zip=12345">
 ```
 
 
