@@ -1,7 +1,7 @@
 {
   "name": "angular-validate",
   "keywords": ["AngularJS", "Validation", "Form validation"],
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "dist/angular-validate.js",
   "dependencies": {
     "angular": "~1.3.4",
