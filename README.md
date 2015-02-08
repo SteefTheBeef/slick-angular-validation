@@ -25,7 +25,10 @@ The for element should have a name, like so:
  <form name="daform">
  ...
 ``````
-Validation messages is composed out of the name of the the field(with uppercased first letter) and a message part.
+Validation messages is composed out of the:
+* name of the the field(with uppercased first letter)  
+* and a message part.
+* or a custom message
 So an input like this:
 ```html
  <input type="text" ng-model="data.userName" name="userName" validate="required" />
