@@ -1,4 +1,4 @@
-angular.module('angular-validate.rules')
+angular.module('slick-angular-validation.rules')
 .factory 'match', () ->
   {
     message: () -> 'does not match not #value'

@@ -1,4 +1,4 @@
-angular.module('angular-validate.rules')
+angular.module('slick-angular-validation.rules')
 .factory 'inString', () ->
   {
     message: () -> 'cannot be less than #value'

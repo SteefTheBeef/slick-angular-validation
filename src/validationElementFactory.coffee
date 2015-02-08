@@ -1,4 +1,4 @@
-angular.module('angular-validate.factory', ['angular-validate.rules'])
+angular.module('slick-angular-validation.factory', ['slick-angular-validation.rules'])
 
 .factory 'validationElementFactory', (
   $compile

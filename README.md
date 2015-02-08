@@ -8,6 +8,20 @@ Requirements
 * AngularJS
 * jQuery
 
+License
+-----
+MIT
+
+Install
+-----
+bower install slick-angular-validation
+or clone this repo
+
+Get going
+-------
+Wrap your inputs in
+
+
 Implemented rules so far
 -------
 * accepted
@@ -95,7 +109,6 @@ case insensitive.
  <input type="text" ng-model="data.password" name="password" />
  <input type="text" ng-model="data.passwordConfirmation" name="passwordConfirmation" validate="match:data.password" />
 ```
-
 ##### max
 Field value cannot be greater than the supplied max value.
 ```html
@@ -157,7 +170,6 @@ Field is required if supplied model has the specified value
 ```html
 <input type="text" ng-model="data.address" name="address" validate="requiredIf:data.zip=12345">
 ```
-
 
 
 

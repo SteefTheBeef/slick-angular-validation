@@ -1,4 +1,4 @@
-angular.module('angular-validate.rules')
+angular.module('slick-angular-validation.rules')
 .factory 'boolean', () ->
   {
     message: () -> 'is not valid. Accepted input are true, false, 1, 0'

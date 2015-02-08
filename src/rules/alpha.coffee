@@ -1,4 +1,4 @@
-angular.module('angular-validate.rules')
+angular.module('slick-angular-validation.rules')
 .factory 'alpha', () ->
   {
     message: () -> 'can only contain alphabetic characters'

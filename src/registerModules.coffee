@@ -1,3 +1,3 @@
-angular.module('angular-validate', [])
-angular.module('angular-validate.rules', [])
-angular.module('angular-validate.factory', [])
+angular.module('slick-angular-validation', [])
+angular.module('slick-angular-validation.rules', [])
+angular.module('slick-angular-validation.factory', [])

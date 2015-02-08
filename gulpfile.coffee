@@ -29,12 +29,12 @@ obj = {
 
   compile: () ->
     gulp.src(files.build.js)
-    .pipe(concat('angular-validate.js'))
+    .pipe(concat('slick-angular-validation.js'))
     .pipe(gulp.dest('./dist/'))
     .on 'error', (err) ->
 
     gulp.src(files.build.js)
-    .pipe(concat('angular-validate.min.js'))
+    .pipe(concat('slick-angular-validation.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./dist/'))
     .on 'error', (err) ->
@@ -50,12 +50,7 @@ obj = {
 
   registerWatchers: () ->
     gulp.task 'b-watchCoffee', => @coffee()
-    #gulp.task 'b-watchTemplates', => @templateCache()
-    #gulp.task 'b-watchLess', => @less()
-
     coffeeWatcher = gulp.watch('./src/{,*/}*.coffee', ['b-watchCoffee']);
-    #templateWatcher = gulp.watch('./src/**/*.html', ['b-watchTemplates']);
-    #lessWatcher =  gulp.watch('./src/less/*.less', ['b-watchLess']);
 
     registerWatcherOnChangeConsole(coffeeWatcher)
 }

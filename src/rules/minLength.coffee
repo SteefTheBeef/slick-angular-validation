@@ -1,4 +1,4 @@
-angular.module('angular-validate.rules')
+angular.module('slick-angular-validation.rules')
 .factory 'minLength', () ->
   {
     message: () -> 'cannot be less than #value characters'

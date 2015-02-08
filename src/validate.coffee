@@ -1,4 +1,4 @@
-angular.module('angular-validate', ['angular-validate.rules', 'angular-validate.factory'])
+angular.module('slick-angular-validation', ['slick-angular-validation.rules', 'slick-angular-validation.factory'])
 
 .directive 'validate', (
   $timeout
