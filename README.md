@@ -19,9 +19,12 @@ or clone this repo
 
 Get going
 -------
-Wrap your inputs in
-
-
+All your form field should reside within an form element.
+The for element should have a name, like so:
+```html
+ <form name="daform">
+ ...
+``````
 Implemented rules so far
 -------
 * accepted
