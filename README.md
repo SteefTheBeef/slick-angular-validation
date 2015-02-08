@@ -14,8 +14,8 @@ MIT
 
 Install
 -----
-bower install slick-angular-validation
-or clone this repo
+* bower install slick-angular-validation
+* or clone this repo
 
 Get going
 -------
