@@ -1,7 +1,7 @@
 {
   "author": "Stefan Hellström",
-  "name": "angular-validate",
-  "description": "Easy form validation for AngualarJS",
+  "name": "slick-angular-validation",
+  "description": "Slick form validation for AngularJS",
   "repository": {
     "type": "git",
     "url": "https://github.com/SteefTheBeef/angular-validate.git"
