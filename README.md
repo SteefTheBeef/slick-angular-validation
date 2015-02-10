@@ -14,8 +14,9 @@ MIT
 
 Install
 -----
-* bower install slick-angular-validation
-* or clone this repo
+* bower install slick-angular-validation or clone this repo
+* then include dist/slick-angular-validation.min.js in your files
+* lastly add slick-angular-validation as dependency in your app file(s)
 
 Get going
 -------
