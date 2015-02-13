@@ -426,7 +426,7 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
   getTransformedName = function(unformatedName) {
     var result;
     result = unformatedName.charAt(0).toUpperCase() + unformatedName.slice(1);
-    result = result.replace(/([A-Z]+)/g, "$1").replace(/([A-Z][a-z])/g, "$1");
+    result = result.replace(/([A-Z]+)/g, "$1").replace(/([A-Z][a-z])/g, " $1");
     return result;
   };
   getNames = function(elem) {
