@@ -85,7 +85,7 @@ Field should only contain letters, numbers, underscores and dashes
 ##### alphaNumeric
 Field should only contain letters and numbers
 ```html
- <input type="text" ng-model="data.userName" name="userName" validate="alphaDash" />
+ <input type="text" ng-model="data.userName" name="userName" validate="alphaNumeric" />
 ```
 
 ##### boolean

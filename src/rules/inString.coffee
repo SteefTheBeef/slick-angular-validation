@@ -1,7 +1,7 @@
 angular.module('slick-angular-validation.rules')
 .factory 'inString', () ->
   {
-    message: () -> 'cannot be less than #value'
+    message: () -> 'cannot be found within #value'
 
     validate: (modelValue, haystack) ->
       if modelValue is "" then return true

@@ -31,7 +31,6 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
     msg = rules.getMessages()[attribute.key]
     unless msg then return ""
     msg.replace('#value', attribute.value)
-    .replace('#prettyvalue', attribute.value.replace('_', ' ') if attribute.value)
 
   getTransformedName = (unformatedName) ->
     result = unformatedName.charAt(0).toUpperCase() + unformatedName.slice(1)
