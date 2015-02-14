@@ -179,7 +179,7 @@ angular.module('slick-angular-validation.rules').factory('inString', function() 
 angular.module('slick-angular-validation.rules').factory('match', function() {
   return {
     message: function() {
-      return 'does not match not #value';
+      return 'does not match #value';
     },
     validate: function(modelValue, otherValue) {
       if (modelValue === "") {
