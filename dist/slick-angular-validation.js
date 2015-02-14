@@ -161,7 +161,7 @@ angular.module('slick-angular-validation.rules').factory('email', function() {
 angular.module('slick-angular-validation.rules').factory('inString', function() {
   return {
     message: function() {
-      return 'cannot be less than #value';
+      return 'cannot be found within #value';
     },
     validate: function(modelValue, haystack) {
       if (modelValue === "") {
@@ -421,7 +421,7 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
     if (!msg) {
       return "";
     }
-    return msg.replace('#value', attribute.value).replace('#prettyvalue', attribute.value ? attribute.value.replace('_', ' ') : void 0);
+    return msg.replace('#value', attribute.value);
   };
   getTransformedName = function(unformatedName) {
     var result;
