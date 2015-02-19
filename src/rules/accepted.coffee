@@ -5,7 +5,9 @@ angular.module('slick-angular-validation.rules')
 
     validate: (modelValue) ->
       if modelValue is "" then return true
-      if modelValue is 'true' or parseInt(modelValue) is 1
+
+      modelValue = modelValue.toLowerCase();
+      if modelValue is 'true' or modelValue is '1'
         return true
       false
   }

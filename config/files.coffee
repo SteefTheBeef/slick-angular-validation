@@ -9,6 +9,7 @@ module.exports =
   vendor:
     js: [
       'angular/angular.js',
+      'angular-cookies/angular-cookies.js',
     ]
   test:
     [

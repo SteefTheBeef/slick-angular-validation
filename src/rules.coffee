@@ -19,30 +19,32 @@ angular.module('slick-angular-validation.rules')
   number
   regex
   required
-  requiredIf) ->
+  requiredIf
+  url) ->
   {
-    getMessages: () ->
+    get: () ->
       {
-        accepted: accepted.message()
-        alpha: alpha.message()
-        alphaDash: alphaDash.message()
-        alphaNumeric: alphaNumeric.message()
-        boolean: boolean.message()
-        inString: inString.message()
-        date: date.message()
-        different: different.message()
-        email: email.message()
-        match: match.message()
-        max: max.message()
-        maxDate: maxDate.message()
-        maxLength: maxLength.message()
-        min: min.message()
-        minDate: minDate.message()
-        minLength: minLength.message()
-        number: number.message()
-        regex: regex.message()
-        required: required.message()
-        requiredIf: requiredIf.message()
+        accepted: { message: accepted.message(), prettify: false }
+        alpha:{ message: alpha.message(), prettify: false }
+        alphaDash: { message: alphaDash.message(), prettify: false }
+        alphaNumeric: { message: alphaNumeric.message(), prettify: false }
+        boolean: { message: boolean.message(), prettify: false }
+        inString: { message: inString.message(), prettify: true }
+        date: { message: date.message(), prettify: false }
+        different: { message: different.message(), prettify: true }
+        email: { message: email.message(), prettify: false }
+        match: { message: match.message(), prettify: true }
+        max: { message: max.message(), prettify: false }
+        maxDate: { message: maxDate.message(), prettify: true }
+        maxLength: { message: maxLength.message(), prettify: false }
+        min: { message: min.message(), prettify: false }
+        minDate: { message: minDate.message(), prettify: true }
+        minLength: { message: minLength.message(), prettify: false }
+        number: { message: number.message(), prettify: false }
+        regex: { message: regex.message(), prettify: false }
+        required: { message: required.message(), prettify: false }
+        requiredIf: { message: requiredIf.message(), prettify: true }
+        url: { message: url.message(), prettify: false }
       }
   }
 

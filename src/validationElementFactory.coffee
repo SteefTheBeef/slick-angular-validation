@@ -6,6 +6,8 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
 
   getValidationAttributes = (validationAttribute, validationMessages) ->
     return [] unless validationAttribute
+    #inputs = $('input[ng-model="data.regex"]')
+    #console.log inputs
     message = {}
     if validationMessages
       validationMessages.split('|').forEach (validationMessage) ->
@@ -27,10 +29,26 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
         result.value2 = lastParts[1]
       result
 
-  getDefaultMessage = (attribute) ->
-    msg = rules.getMessages()[attribute.key]
+  getDefaultMessage = (attribute, elem) ->
+    currentRule = rules.get()[attribute.key]
+    msg = currentRule['message']
     unless msg then return ""
-    msg.replace('#value', attribute.value)
+
+    unless currentRule.prettify
+      return msg.replace('#value', attribute.value)
+
+    form = elem.parents('form').first()
+    unless form.length
+      return msg.replace('#value', attribute.value)
+
+    field = form.find('*[ng-model="' + attribute.value + '"]').first()
+    unless field.length
+      return msg.replace('#value', attribute.value)
+
+    return msg.replace('#value', field.attr('name'))
+
+
+
 
   getTransformedName = (unformatedName) ->
     result = unformatedName.charAt(0).toUpperCase() + unformatedName.slice(1)
@@ -50,20 +68,21 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
   getListItem = (elementName, attributeKey, message) ->
     '<li class="' + elementName + '-error-' + attributeKey + '">' + message + '</li>'
 
-  getMessage = (displayName, attribute) ->
+  getMessage = (displayName, attribute, elem) ->
     if attribute.message
-      return displayName + ' ' + attribute.message
+      return attribute.message
     else
-      displayName + ' ' + getDefaultMessage(attribute)
+      displayName + ' ' + getDefaultMessage(attribute, elem)
   {
     create: (element, attrs) ->
       elem = $(element[0])
+
       names = getNames(elem)
       validationAttributes = getValidationAttributes(attrs.validate, attrs.validateMessages)
       validationBlock = getValidationElementStart()
 
       for attribute in validationAttributes
-        validationBlock += getListItem(names.elementName, attribute.key, getMessage(names.displayName, attribute))
+        validationBlock += getListItem(names.elementName, attribute.key, getMessage(names.displayName, attribute, elem))
 
       validationBlock += '</ul>'
       elem.after(validationBlock)

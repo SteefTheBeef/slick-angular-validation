@@ -23,7 +23,8 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
   number
   regex
   required
-  requiredIf) ->
+  requiredIf
+  url) ->
 
   {
     restrict: 'A',
@@ -38,38 +39,25 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
         modelCtrl = ctrls[0]
         formCtrl = ctrls[1]
 
+
         $timeout () ->
+          watchValidateOnMethod = (unwatchModel, unwatchEquality) ->
+            unless formCtrl.$name then return
+            scope.$watch formCtrl.$name + '.validateOn', (value) ->
+              if value is 'blur'
+                if unwatchModel then unwatchModel()
+                if unwatchEquality then unwatchEquality()
+
           watchEquality = () ->
+            unwatchEquality = null
             for attribute in validation.attributes
-              if attribute.key is 'match'
-                scope.$watch attribute.value, () =>
-                  $timeout () =>
-                    modelCtrl.$setDirty()
-                    run([attribute])
-
-              if attribute.key is 'different'
-                scope.$watch attribute.value, () =>
-                  $timeout () =>
-                    modelCtrl.$setDirty()
-                    run([attribute])
-
-              if attribute.key is 'minDate'
-                scope.$watch attribute.value, () =>
-                  $timeout () =>
-                    modelCtrl.$setDirty()
-                    run([attribute])
-
-              if attribute.key is 'maxDate'
-                scope.$watch attribute.value, () =>
-                  $timeout () =>
-                    modelCtrl.$setDirty()
-                    run([attribute])
-
-              if attribute.key is 'requiredIf'
-                scope.$watch attribute.value, () =>
-                  $timeout () =>
-                    modelCtrl.$setDirty()
-                    run([attribute])
+              switch attribute.key
+                when 'match', 'different', 'minDate', 'maxDate', 'requiredIf'
+                  unwatchEquality = scope.$watch attribute.value, () =>
+                    $timeout () =>
+                      modelCtrl.$setDirty()
+                      run([attribute])
+            unwatchEquality
 
           watchSubmit = () ->
             unless formCtrl and formCtrl.$name then return
@@ -80,10 +68,11 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
 
           watchModel = () ->
             validationCount = 0
-            scope.$watch attrs.ngModel, () ->
+            unwatchModel = scope.$watch attrs.ngModel, () ->
               if validationCount > 0
                 run()
               validationCount++
+            unwatchModel
 
           toggleItem = (validationKey, display) ->
             validation.element.children('.' + modelCtrl.$name + '-error-' + validationKey).css('display', display)
@@ -136,14 +125,20 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
                 when 'required' then result = required.validate(modelValue)
                 when 'requiredIf'
                   result = requiredIf.validate(modelValue, $parse(attribute.value)(scope), getParsedValue(attribute.value2))
+                when 'url' then result = url.validate(modelValue)
+
               setIsValid(attribute.key, result)
               toggleElement(attribute.key, result)
 
           watchSubmit()
-          watchModel()
-          watchEquality()
+          unwatchModel = watchModel()
+          unwatchEquality = watchEquality()
+          #watchValidateOnMethod(unwatchModel, unwatchEquality)
 
           element.blur () -> run()
+
+          form = element.parents('form').first()
+          console.log form
 
           if attrs.type and (attrs.type is 'checkbox' or attrs.type is 'radio')
             element.change () -> run()
