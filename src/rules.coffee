@@ -17,7 +17,7 @@ angular.module('slick-angular-validation.rules')
   minDate
   minLength
   number
-  regex
+  pattern
   required
   requiredIf
   url) ->
@@ -41,7 +41,7 @@ angular.module('slick-angular-validation.rules')
         minDate: { message: minDate.message(), prettify: true }
         minLength: { message: minLength.message(), prettify: false }
         number: { message: number.message(), prettify: false }
-        regex: { message: regex.message(), prettify: false }
+        pattern: { message: pattern.message(), prettify: false }
         required: { message: required.message(), prettify: false }
         requiredIf: { message: requiredIf.message(), prettify: true }
         url: { message: url.message(), prettify: false }

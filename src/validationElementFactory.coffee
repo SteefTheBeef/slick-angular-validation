@@ -6,8 +6,7 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
 
   getValidationAttributes = (validationAttribute, validationMessages) ->
     return [] unless validationAttribute
-    #inputs = $('input[ng-model="data.regex"]')
-    #console.log inputs
+
     message = {}
     if validationMessages
       validationMessages.split('|').forEach (validationMessage) ->
@@ -31,6 +30,9 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
 
   getDefaultMessage = (attribute, elem) ->
     currentRule = rules.get()[attribute.key]
+    unless currentRule
+      throw 'Validation rule:' + attribute.key + ' does not exist'
+
     msg = currentRule['message']
     unless msg then return ""
 
@@ -46,9 +48,6 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
       return msg.replace('#value', attribute.value)
 
     return msg.replace('#value', field.attr('name'))
-
-
-
 
   getTransformedName = (unformatedName) ->
     result = unformatedName.charAt(0).toUpperCase() + unformatedName.slice(1)

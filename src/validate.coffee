@@ -21,7 +21,7 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
   minDate
   minLength
   number
-  regex
+  pattern
   required
   requiredIf
   url) ->
@@ -39,6 +39,37 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
         modelCtrl = ctrls[0]
         formCtrl = ctrls[1]
 
+
+
+        getValidateOn = () ->
+          getElementValidateOn = () ->
+            unless attrs.validateOn
+              return 'empty'
+            switch attrs.validateOn
+              when 'blur' then return 'blur'
+              when 'change' then return 'change'
+            'empty'
+          getIt = (valOn) ->
+            unless valOn then return 'empty'
+            switch valOn
+              when 'blur' then return 'blur'
+              when 'change' then return 'change'
+            'empty'
+
+          setFormCtrlValidateOn = () ->
+            form = element.parents('form').first()
+            validateOn = form.attr('validate-on')
+            formCtrl.validateOn = getIt(validateOn)
+
+          # first check if element has any validate on attribute
+          elementValidation = getElementValidateOn()
+          unless elementValidation is 'empty'
+            return elementValidation
+
+          # if not, then check the form/formCtrl
+          unless formCtrl.validateOn
+            setFormCtrlValidateOn()
+          formCtrl.validateOn
 
         $timeout () ->
           watchValidateOnMethod = (unwatchModel, unwatchEquality) ->
@@ -121,7 +152,7 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
                 when 'minDate' then result = minDate.validate(modelValue, $parse(attribute.value)(scope))
                 when 'minLength' then result = minLength.validate(modelValue, attribute.value)
                 when 'number' then result = number.validate(modelValue)
-                when 'regex' then result = regex.validate(modelValue, attribute.value)
+                when 'pattern' then result = pattern.validate(modelValue, attribute.value)
                 when 'required' then result = required.validate(modelValue)
                 when 'requiredIf'
                   result = requiredIf.validate(modelValue, $parse(attribute.value)(scope), getParsedValue(attribute.value2))
@@ -130,15 +161,18 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
               setIsValid(attribute.key, result)
               toggleElement(attribute.key, result)
 
+
+
           watchSubmit()
-          unwatchModel = watchModel()
-          unwatchEquality = watchEquality()
+          validateOn = getValidateOn()
+          console.log validateOn
+          if validateOn isnt 'blur'
+            console.log 'röv'
+            unwatchModel = watchModel()
+            unwatchEquality = watchEquality()
           #watchValidateOnMethod(unwatchModel, unwatchEquality)
 
           element.blur () -> run()
-
-          form = element.parents('form').first()
-          console.log form
 
           if attrs.type and (attrs.type is 'checkbox' or attrs.type is 'radio')
             element.change () -> run()

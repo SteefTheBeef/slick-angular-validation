@@ -1,5 +1,5 @@
 angular.module('slick-angular-validation.rules')
-.factory 'regex', () ->
+.factory 'pattern', () ->
   {
     message: () -> 'is not valid'
 
