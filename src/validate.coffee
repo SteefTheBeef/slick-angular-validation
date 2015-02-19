@@ -165,12 +165,9 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
 
           watchSubmit()
           validateOn = getValidateOn()
-          console.log validateOn
           if validateOn isnt 'blur'
-            console.log 'röv'
-            unwatchModel = watchModel()
-            unwatchEquality = watchEquality()
-          #watchValidateOnMethod(unwatchModel, unwatchEquality)
+            watchModel()
+            watchEquality()
 
           element.blur () -> run()
 
