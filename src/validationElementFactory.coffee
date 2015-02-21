@@ -62,10 +62,10 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
     }
 
   getValidationElementStart = () ->
-    '<ul class="angular-validate-messages" style="display:none">'
+    '<ul class="slick-angular-validation" style="display:none">'
 
   getListItem = (elementName, attributeKey, message) ->
-    '<li class="' + elementName + '-error-' + attributeKey + '">' + message + '</li>'
+    '<li class="' + elementName + '-error-' + attributeKey + ' text-danger">' + message + '</li>'
 
   getMessage = (displayName, attribute, elem) ->
     if attribute.message

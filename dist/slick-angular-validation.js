@@ -537,10 +537,10 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
     };
   };
   getValidationElementStart = function() {
-    return '<ul class="angular-validate-messages" style="display:none">';
+    return '<ul class="slick-angular-validation" style="display:none">';
   };
   getListItem = function(elementName, attributeKey, message) {
-    return '<li class="' + elementName + '-error-' + attributeKey + '">' + message + '</li>';
+    return '<li class="' + elementName + '-error-' + attributeKey + ' text-danger">' + message + '</li>';
   };
   getMessage = function(displayName, attribute, elem) {
     if (attribute.message) {
