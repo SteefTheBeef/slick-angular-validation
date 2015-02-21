@@ -108,7 +108,7 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
               toggleItem(validationKey, 'list-item')
             else
               toggleItem(validationKey, 'none')
-              unless validation.children().filter(":visible").length
+              unless validation.children.filter(":visible").length
                 validation.element.css('display', 'none')
 
           setIsValid = (key, isValid) ->
