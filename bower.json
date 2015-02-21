@@ -5,11 +5,11 @@
     "Validation",
     "Form validation"
   ],
-  "version": "1.1.0",
+  "version": "1.1.4",
   "main": "dist/slick-angular-validate.js",
   "dependencies": {
     "angular": "~1.3.4",
-    "jquery": "~2.1.1"
+    "jquery": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.3.6"
