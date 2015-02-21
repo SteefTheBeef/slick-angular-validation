@@ -687,7 +687,7 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
               return toggleItem(validationKey, 'list-item');
             } else {
               toggleItem(validationKey, 'none');
-              if (!validation.children().filter(":visible").length) {
+              if (!validation.children.filter(":visible").length) {
                 return validation.element.css('display', 'none');
               }
             }
