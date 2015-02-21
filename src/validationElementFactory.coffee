@@ -86,8 +86,10 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
       validationBlock += '</ul>'
       elem.after(validationBlock)
 
+      ulElement = elem.next()
       return {
-        element: elem.next()
+        element: ulElement
+        children: ulElement.children()
         attributes: validationAttributes
       }
 

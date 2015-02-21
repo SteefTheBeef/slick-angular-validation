@@ -72,13 +72,6 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
           formCtrl.validateOn
 
         $timeout () ->
-          watchValidateOnMethod = (unwatchModel, unwatchEquality) ->
-            unless formCtrl.$name then return
-            scope.$watch formCtrl.$name + '.validateOn', (value) ->
-              if value is 'blur'
-                if unwatchModel then unwatchModel()
-                if unwatchEquality then unwatchEquality()
-
           watchEquality = () ->
             unwatchEquality = null
             for attribute in validation.attributes
@@ -115,6 +108,8 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
               toggleItem(validationKey, 'list-item')
             else
               toggleItem(validationKey, 'none')
+              unless validation.children().filter(":visible").length
+                validation.element.css('display', 'none')
 
           setIsValid = (key, isValid) ->
             modelCtrl.$setValidity(key, isValid)

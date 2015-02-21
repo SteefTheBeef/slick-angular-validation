@@ -551,7 +551,7 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
   };
   return {
     create: function(element, attrs) {
-      var attribute, elem, names, validationAttributes, validationBlock, _i, _len;
+      var attribute, elem, names, ulElement, validationAttributes, validationBlock, _i, _len;
       elem = $(element[0]);
       names = getNames(elem);
       validationAttributes = getValidationAttributes(attrs.validate, attrs.validateMessages);
@@ -562,8 +562,10 @@ angular.module('slick-angular-validation.factory', ['slick-angular-validation.ru
       }
       validationBlock += '</ul>';
       elem.after(validationBlock);
+      ulElement = elem.next();
       return {
-        element: elem.next(),
+        element: ulElement,
+        children: ulElement.children(),
         attributes: validationAttributes
       };
     }
@@ -626,22 +628,7 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
           return formCtrl.validateOn;
         };
         return $timeout(function() {
-          var getModelValue, getParsedValue, run, setIsValid, toggleElement, toggleItem, validateOn, watchEquality, watchModel, watchSubmit, watchValidateOnMethod;
-          watchValidateOnMethod = function(unwatchModel, unwatchEquality) {
-            if (!formCtrl.$name) {
-              return;
-            }
-            return scope.$watch(formCtrl.$name + '.validateOn', function(value) {
-              if (value === 'blur') {
-                if (unwatchModel) {
-                  unwatchModel();
-                }
-                if (unwatchEquality) {
-                  return unwatchEquality();
-                }
-              }
-            });
-          };
+          var getModelValue, getParsedValue, run, setIsValid, toggleElement, toggleItem, validateOn, watchEquality, watchModel, watchSubmit;
           watchEquality = function() {
             var attribute, unwatchEquality, _i, _len, _ref;
             unwatchEquality = null;
@@ -699,7 +686,10 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
               validation.element.css('display', 'block');
               return toggleItem(validationKey, 'list-item');
             } else {
-              return toggleItem(validationKey, 'none');
+              toggleItem(validationKey, 'none');
+              if (!validation.children().filter(":visible").length) {
+                return validation.element.css('display', 'none');
+              }
             }
           };
           setIsValid = function(key, isValid) {
