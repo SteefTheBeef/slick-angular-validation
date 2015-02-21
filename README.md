@@ -1,4 +1,4 @@
-Angular Validate
+Angular Validation
 ============
 
 Slick form validation for AngularJS.
