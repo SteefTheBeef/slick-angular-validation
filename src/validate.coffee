@@ -39,8 +39,6 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
         modelCtrl = ctrls[0]
         formCtrl = ctrls[1]
 
-
-
         getValidateOn = () ->
           getElementValidateOn = () ->
             unless attrs.validateOn
@@ -71,103 +69,107 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
             setFormCtrlValidateOn()
           formCtrl.validateOn
 
-        $timeout () ->
-          watchEquality = () ->
-            unwatchEquality = null
-            for attribute in validation.attributes
-              switch attribute.key
-                when 'match', 'different', 'minDate', 'maxDate', 'requiredIf'
-                  unwatchEquality = scope.$watch attribute.value, () =>
-                    $timeout () =>
-                      modelCtrl.$setDirty()
-                      run([attribute])
-            unwatchEquality
+        watchEquality = () ->
+          unwatchEquality = null
+          for attribute in validation.attributes
+            switch attribute.key
+              when 'match', 'different', 'minDate', 'maxDate', 'requiredIf'
+                unwatchEquality = scope.$watch attribute.value, () =>
+                  modelCtrl.$setDirty()
+                  run([attribute])
+          unwatchEquality
 
-          watchSubmit = () ->
-            unless formCtrl and formCtrl.$name then return
-            scope.$watch formCtrl.$name + '.$submitted', (value) ->
-              if value is true
-                modelCtrl.$setDirty()
-                run()
-
-          watchModel = () ->
-            validationCount = 0
-            unwatchModel = scope.$watch attrs.ngModel, () ->
-              if validationCount > 0
-                run()
-              validationCount++
-            unwatchModel
-
-          toggleItem = (validationKey, display) ->
-            validation.element.children('.' + modelCtrl.$name + '-error-' + validationKey).css('display', display)
-
-          toggleElement = (validationKey, isValid) ->
-            if modelCtrl.$pristine then return
-            unless isValid
-              validation.element.css('display', 'block')
-              toggleItem(validationKey, 'list-item')
-            else
-              toggleItem(validationKey, 'none')
-              unless validation.children.filter(":visible").length
-                validation.element.css('display', 'none')
-
-          setIsValid = (key, isValid) ->
-            modelCtrl.$setValidity(key, isValid)
-
-          getModelValue = () ->
-            #Allow the value to be set to false
-            if modelCtrl.$modelValue is false or modelCtrl.$modelValue
-              return $.trim(modelCtrl.$modelValue.toString())
-            return ""
-
-          getParsedValue = (value) ->
-            val = $parse(value)(scope)
-            unless val then return value
-            val
-
-          run = (specificValidationAttributes) ->
-            modelValue = getModelValue()
-            for attribute in (specificValidationAttributes || validation.attributes)
-              result = null
-              switch attribute.key
-                when 'accepted' then result = accepted.validate(modelValue)
-                when 'alpha' then result = alpha.validate(modelValue)
-                when 'alphaDash' then result = alphaDash.validate(modelValue)
-                when 'alphaNumeric' then result = alphaNumeric.validate(modelValue)
-                when 'boolean' then result = boolean.validate(modelValue)
-                when 'inString' then result = inString.validate(modelValue, $parse(attribute.value)(scope))
-                when 'date' then result = date.validate(modelValue, attribute.value)
-                when 'different' then result = different.validate(modelValue, $parse(attribute.value)(scope))
-                when 'email' then result = email.validate(modelValue)
-                when 'match' then result = match.validate(modelValue, $parse(attribute.value)(scope))
-                when 'max' then result = max.validate(modelValue, attribute.value)
-                when 'maxLength' then result = maxLength.validate(modelValue, attribute.value)
-                when 'min' then result = min.validate(modelValue, attribute.value)
-                when 'maxDate' then result = maxDate.validate(modelValue, $parse(attribute.value)(scope))
-                when 'minDate' then result = minDate.validate(modelValue, $parse(attribute.value)(scope))
-                when 'minLength' then result = minLength.validate(modelValue, attribute.value)
-                when 'number' then result = number.validate(modelValue)
-                when 'pattern' then result = pattern.validate(modelValue, attribute.value)
-                when 'required' then result = required.validate(modelValue)
-                when 'requiredIf'
-                  result = requiredIf.validate(modelValue, $parse(attribute.value)(scope), getParsedValue(attribute.value2))
-                when 'url' then result = url.validate(modelValue)
-
-              setIsValid(attribute.key, result)
-              toggleElement(attribute.key, result)
+        watchSubmit = () ->
+          unless formCtrl and formCtrl.$name then return
+          unwatchSubmit = scope.$watch formCtrl.$name + '.$submitted', (value) ->
+            if value is true
+              modelCtrl.$setDirty()
+              run()
+          unwatchSubmit
 
 
+        watchModel = () ->
+          validationCount = 0
+          unwatchModel = scope.$watch attrs.ngModel, () ->
+            if validationCount > 0
+              run()
+            validationCount++
+          unwatchModel
 
-          watchSubmit()
-          validateOn = getValidateOn()
-          if validateOn isnt 'blur'
-            watchModel()
-            watchEquality()
+        toggleItem = (validationKey, display) ->
+          validation.element.children('.' + modelCtrl.$name + '-error-' + validationKey).css('display', display)
 
-          element.blur () -> run()
+        toggleElement = (validationKey, isValid) ->
+          if modelCtrl.$pristine then return
+          unless isValid
+            validation.element.css('display', 'block')
+            toggleItem(validationKey, 'list-item')
+          else
+            toggleItem(validationKey, 'none')
+            unless validation.children.filter(":visible").length
+              validation.element.css('display', 'none')
 
-          if attrs.type and (attrs.type is 'checkbox' or attrs.type is 'radio')
-            element.change () -> run()
+        setIsValid = (key, isValid) ->
+          modelCtrl.$setValidity(key, isValid)
 
-          run()
+        getModelValue = () ->
+          #Allow the value to be set to false
+          if modelCtrl.$modelValue is false or modelCtrl.$modelValue
+            return $.trim(modelCtrl.$modelValue.toString())
+          return ""
+
+        getParsedValue = (value) ->
+          val = $parse(value)(scope)
+          unless val then return value
+          val
+
+        run = (specificValidationAttributes) ->
+          modelValue = getModelValue()
+          for attribute in (specificValidationAttributes || validation.attributes)
+            result = null
+            switch attribute.key
+              when 'accepted' then result = accepted.validate(modelValue)
+              when 'alpha' then result = alpha.validate(modelValue)
+              when 'alphaDash' then result = alphaDash.validate(modelValue)
+              when 'alphaNumeric' then result = alphaNumeric.validate(modelValue)
+              when 'boolean' then result = boolean.validate(modelValue)
+              when 'inString' then result = inString.validate(modelValue, $parse(attribute.value)(scope))
+              when 'date' then result = date.validate(modelValue, attribute.value)
+              when 'different' then result = different.validate(modelValue, $parse(attribute.value)(scope))
+              when 'email' then result = email.validate(modelValue)
+              when 'match' then result = match.validate(modelValue, $parse(attribute.value)(scope))
+              when 'max' then result = max.validate(modelValue, attribute.value)
+              when 'maxLength' then result = maxLength.validate(modelValue, attribute.value)
+              when 'min' then result = min.validate(modelValue, attribute.value)
+              when 'maxDate' then result = maxDate.validate(modelValue, $parse(attribute.value)(scope))
+              when 'minDate' then result = minDate.validate(modelValue, $parse(attribute.value)(scope))
+              when 'minLength' then result = minLength.validate(modelValue, attribute.value)
+              when 'number' then result = number.validate(modelValue)
+              when 'pattern' then result = pattern.validate(modelValue, attribute.value)
+              when 'required' then result = required.validate(modelValue)
+              when 'requiredIf'
+                result = requiredIf.validate(modelValue, $parse(attribute.value)(scope), getParsedValue(attribute.value2))
+              when 'url' then result = url.validate(modelValue)
+
+            setIsValid(attribute.key, result)
+            toggleElement(attribute.key, result)
+
+        unwatchSubmit = watchSubmit()
+        validateOn = getValidateOn()
+        if validateOn isnt 'blur'
+          unwatchModel = watchModel()
+          unwatchEquality = watchEquality()
+
+        element.bind 'blur', () -> run()
+
+        if attrs.type and (attrs.type is 'checkbox' or attrs.type is 'radio')
+          element.bind 'change', () -> run()
+
+        run()
+
+        scope.$on '$destroy', () ->
+          if unwatchSubmit then unwatchSubmit()
+          if unwatchModel then unwatchModel()
+          if unwatchEquality then unwatchEquality()
+          element.unbind()
   }

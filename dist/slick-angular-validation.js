@@ -583,7 +583,7 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
       }
       validation = validationElementFactory.create(element, attrs);
       return function(scope, element, attrs, ctrls) {
-        var formCtrl, getValidateOn, modelCtrl;
+        var formCtrl, getModelValue, getParsedValue, getValidateOn, modelCtrl, run, setIsValid, toggleElement, toggleItem, unwatchEquality, unwatchModel, unwatchSubmit, validateOn, watchEquality, watchModel, watchSubmit;
         modelCtrl = ctrls[0];
         formCtrl = ctrls[1];
         getValidateOn = function() {
@@ -627,180 +627,189 @@ angular.module('slick-angular-validation', ['slick-angular-validation.rules', 's
           }
           return formCtrl.validateOn;
         };
-        return $timeout(function() {
-          var getModelValue, getParsedValue, run, setIsValid, toggleElement, toggleItem, validateOn, watchEquality, watchModel, watchSubmit;
-          watchEquality = function() {
-            var attribute, unwatchEquality, _i, _len, _ref;
-            unwatchEquality = null;
-            _ref = validation.attributes;
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              attribute = _ref[_i];
-              switch (attribute.key) {
-                case 'match':
-                case 'different':
-                case 'minDate':
-                case 'maxDate':
-                case 'requiredIf':
-                  unwatchEquality = scope.$watch(attribute.value, (function(_this) {
-                    return function() {
-                      return $timeout(function() {
-                        modelCtrl.$setDirty();
-                        return run([attribute]);
-                      });
-                    };
-                  })(this));
-              }
+        watchEquality = function() {
+          var attribute, unwatchEquality, _i, _len, _ref;
+          unwatchEquality = null;
+          _ref = validation.attributes;
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            attribute = _ref[_i];
+            switch (attribute.key) {
+              case 'match':
+              case 'different':
+              case 'minDate':
+              case 'maxDate':
+              case 'requiredIf':
+                unwatchEquality = scope.$watch(attribute.value, (function(_this) {
+                  return function() {
+                    modelCtrl.$setDirty();
+                    return run([attribute]);
+                  };
+                })(this));
             }
-            return unwatchEquality;
-          };
-          watchSubmit = function() {
-            if (!(formCtrl && formCtrl.$name)) {
-              return;
-            }
-            return scope.$watch(formCtrl.$name + '.$submitted', function(value) {
-              if (value === true) {
-                modelCtrl.$setDirty();
-                return run();
-              }
-            });
-          };
-          watchModel = function() {
-            var unwatchModel, validationCount;
-            validationCount = 0;
-            unwatchModel = scope.$watch(attrs.ngModel, function() {
-              if (validationCount > 0) {
-                run();
-              }
-              return validationCount++;
-            });
-            return unwatchModel;
-          };
-          toggleItem = function(validationKey, display) {
-            return validation.element.children('.' + modelCtrl.$name + '-error-' + validationKey).css('display', display);
-          };
-          toggleElement = function(validationKey, isValid) {
-            if (modelCtrl.$pristine) {
-              return;
-            }
-            if (!isValid) {
-              validation.element.css('display', 'block');
-              return toggleItem(validationKey, 'list-item');
-            } else {
-              toggleItem(validationKey, 'none');
-              if (!validation.children.filter(":visible").length) {
-                return validation.element.css('display', 'none');
-              }
-            }
-          };
-          setIsValid = function(key, isValid) {
-            return modelCtrl.$setValidity(key, isValid);
-          };
-          getModelValue = function() {
-            if (modelCtrl.$modelValue === false || modelCtrl.$modelValue) {
-              return $.trim(modelCtrl.$modelValue.toString());
-            }
-            return "";
-          };
-          getParsedValue = function(value) {
-            var val;
-            val = $parse(value)(scope);
-            if (!val) {
-              return value;
-            }
-            return val;
-          };
-          run = function(specificValidationAttributes) {
-            var attribute, modelValue, result, _i, _len, _ref, _results;
-            modelValue = getModelValue();
-            _ref = specificValidationAttributes || validation.attributes;
-            _results = [];
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              attribute = _ref[_i];
-              result = null;
-              switch (attribute.key) {
-                case 'accepted':
-                  result = accepted.validate(modelValue);
-                  break;
-                case 'alpha':
-                  result = alpha.validate(modelValue);
-                  break;
-                case 'alphaDash':
-                  result = alphaDash.validate(modelValue);
-                  break;
-                case 'alphaNumeric':
-                  result = alphaNumeric.validate(modelValue);
-                  break;
-                case 'boolean':
-                  result = boolean.validate(modelValue);
-                  break;
-                case 'inString':
-                  result = inString.validate(modelValue, $parse(attribute.value)(scope));
-                  break;
-                case 'date':
-                  result = date.validate(modelValue, attribute.value);
-                  break;
-                case 'different':
-                  result = different.validate(modelValue, $parse(attribute.value)(scope));
-                  break;
-                case 'email':
-                  result = email.validate(modelValue);
-                  break;
-                case 'match':
-                  result = match.validate(modelValue, $parse(attribute.value)(scope));
-                  break;
-                case 'max':
-                  result = max.validate(modelValue, attribute.value);
-                  break;
-                case 'maxLength':
-                  result = maxLength.validate(modelValue, attribute.value);
-                  break;
-                case 'min':
-                  result = min.validate(modelValue, attribute.value);
-                  break;
-                case 'maxDate':
-                  result = maxDate.validate(modelValue, $parse(attribute.value)(scope));
-                  break;
-                case 'minDate':
-                  result = minDate.validate(modelValue, $parse(attribute.value)(scope));
-                  break;
-                case 'minLength':
-                  result = minLength.validate(modelValue, attribute.value);
-                  break;
-                case 'number':
-                  result = number.validate(modelValue);
-                  break;
-                case 'pattern':
-                  result = pattern.validate(modelValue, attribute.value);
-                  break;
-                case 'required':
-                  result = required.validate(modelValue);
-                  break;
-                case 'requiredIf':
-                  result = requiredIf.validate(modelValue, $parse(attribute.value)(scope), getParsedValue(attribute.value2));
-                  break;
-                case 'url':
-                  result = url.validate(modelValue);
-              }
-              setIsValid(attribute.key, result);
-              _results.push(toggleElement(attribute.key, result));
-            }
-            return _results;
-          };
-          watchSubmit();
-          validateOn = getValidateOn();
-          if (validateOn !== 'blur') {
-            watchModel();
-            watchEquality();
           }
-          element.blur(function() {
+          return unwatchEquality;
+        };
+        watchSubmit = function() {
+          var unwatchSubmit;
+          if (!(formCtrl && formCtrl.$name)) {
+            return;
+          }
+          unwatchSubmit = scope.$watch(formCtrl.$name + '.$submitted', function(value) {
+            if (value === true) {
+              modelCtrl.$setDirty();
+              return run();
+            }
+          });
+          return unwatchSubmit;
+        };
+        watchModel = function() {
+          var unwatchModel, validationCount;
+          validationCount = 0;
+          unwatchModel = scope.$watch(attrs.ngModel, function() {
+            if (validationCount > 0) {
+              run();
+            }
+            return validationCount++;
+          });
+          return unwatchModel;
+        };
+        toggleItem = function(validationKey, display) {
+          return validation.element.children('.' + modelCtrl.$name + '-error-' + validationKey).css('display', display);
+        };
+        toggleElement = function(validationKey, isValid) {
+          if (modelCtrl.$pristine) {
+            return;
+          }
+          if (!isValid) {
+            validation.element.css('display', 'block');
+            return toggleItem(validationKey, 'list-item');
+          } else {
+            toggleItem(validationKey, 'none');
+            if (!validation.children.filter(":visible").length) {
+              return validation.element.css('display', 'none');
+            }
+          }
+        };
+        setIsValid = function(key, isValid) {
+          return modelCtrl.$setValidity(key, isValid);
+        };
+        getModelValue = function() {
+          if (modelCtrl.$modelValue === false || modelCtrl.$modelValue) {
+            return $.trim(modelCtrl.$modelValue.toString());
+          }
+          return "";
+        };
+        getParsedValue = function(value) {
+          var val;
+          val = $parse(value)(scope);
+          if (!val) {
+            return value;
+          }
+          return val;
+        };
+        run = function(specificValidationAttributes) {
+          var attribute, modelValue, result, _i, _len, _ref, _results;
+          modelValue = getModelValue();
+          _ref = specificValidationAttributes || validation.attributes;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            attribute = _ref[_i];
+            result = null;
+            switch (attribute.key) {
+              case 'accepted':
+                result = accepted.validate(modelValue);
+                break;
+              case 'alpha':
+                result = alpha.validate(modelValue);
+                break;
+              case 'alphaDash':
+                result = alphaDash.validate(modelValue);
+                break;
+              case 'alphaNumeric':
+                result = alphaNumeric.validate(modelValue);
+                break;
+              case 'boolean':
+                result = boolean.validate(modelValue);
+                break;
+              case 'inString':
+                result = inString.validate(modelValue, $parse(attribute.value)(scope));
+                break;
+              case 'date':
+                result = date.validate(modelValue, attribute.value);
+                break;
+              case 'different':
+                result = different.validate(modelValue, $parse(attribute.value)(scope));
+                break;
+              case 'email':
+                result = email.validate(modelValue);
+                break;
+              case 'match':
+                result = match.validate(modelValue, $parse(attribute.value)(scope));
+                break;
+              case 'max':
+                result = max.validate(modelValue, attribute.value);
+                break;
+              case 'maxLength':
+                result = maxLength.validate(modelValue, attribute.value);
+                break;
+              case 'min':
+                result = min.validate(modelValue, attribute.value);
+                break;
+              case 'maxDate':
+                result = maxDate.validate(modelValue, $parse(attribute.value)(scope));
+                break;
+              case 'minDate':
+                result = minDate.validate(modelValue, $parse(attribute.value)(scope));
+                break;
+              case 'minLength':
+                result = minLength.validate(modelValue, attribute.value);
+                break;
+              case 'number':
+                result = number.validate(modelValue);
+                break;
+              case 'pattern':
+                result = pattern.validate(modelValue, attribute.value);
+                break;
+              case 'required':
+                result = required.validate(modelValue);
+                break;
+              case 'requiredIf':
+                result = requiredIf.validate(modelValue, $parse(attribute.value)(scope), getParsedValue(attribute.value2));
+                break;
+              case 'url':
+                result = url.validate(modelValue);
+            }
+            setIsValid(attribute.key, result);
+            _results.push(toggleElement(attribute.key, result));
+          }
+          return _results;
+        };
+        unwatchSubmit = watchSubmit();
+        validateOn = getValidateOn();
+        if (validateOn !== 'blur') {
+          unwatchModel = watchModel();
+          unwatchEquality = watchEquality();
+        }
+        element.bind('blur', function() {
+          return run();
+        });
+        if (attrs.type && (attrs.type === 'checkbox' || attrs.type === 'radio')) {
+          element.bind('change', function() {
             return run();
           });
-          if (attrs.type && (attrs.type === 'checkbox' || attrs.type === 'radio')) {
-            element.change(function() {
-              return run();
-            });
+        }
+        run();
+        return scope.$on('$destroy', function() {
+          if (unwatchSubmit) {
+            unwatchSubmit();
           }
-          return run();
+          if (unwatchModel) {
+            unwatchModel();
+          }
+          if (unwatchEquality) {
+            unwatchEquality();
+          }
+          return element.unbind();
         });
       };
     }
