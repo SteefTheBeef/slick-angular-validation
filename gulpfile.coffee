@@ -15,17 +15,19 @@ registerWatcherOnChangeConsole = (watcher) ->
     console.log('File '+event.path+' was '+event.type+', running tasks...')
 
 obj = {
-  clean: () ->
-    del ['build/**'], (err) ->
-      console.log('Files deleted')
+  clean: (done) ->
+    del ['build/**'], () ->
+      done()
 
-  coffee: (err) ->
+  coffee: (done) ->
     gulp.src(['./src/{,*/}*.coffee'])
     .pipe(coffee({ bare: true }))
     .pipe(ngAnnotate())
     .pipe(gulp.dest('./build/'))
-    .on 'error', (err) ->
-      console.log err
+    .on 'end', () ->
+      done()
+    # do not return the stream, otherwise the callback hack for sequential tasks does not work.
+    true
 
   compile: () ->
     gulp.src(files.build.js)
@@ -56,8 +58,8 @@ obj = {
 }
 
 gulp.task 'concat', => obj.concat()
-gulp.task 'b-clean', => obj.clean()
-gulp.task 'b-coffee', ['b-clean'], => obj.coffee()
+gulp.task 'b-clean', => (callback) -> obj.clean(callback)
+gulp.task 'b-coffee', ['b-clean'], (callback) -> obj.coffee(callback)
 gulp.task 'test', () => obj.test()
 gulp.task 'compile', => obj.compile()
 
