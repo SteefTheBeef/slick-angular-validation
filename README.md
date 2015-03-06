@@ -27,7 +27,10 @@ gulangco-plage/
   |  |  |- karma.conf.coffee <test config>
   |  |  |- paths.coffee <file paths config>
   |  |- tasks/ <gulp tasks divided into separate files>
-  |- less <less files goes here>
+  |- less <all styling belongs here>
+  |  |- animation.less <animation and transition styles>
+  |  |- base.less <mixins and variables>
+  |  |- layout.less <main styles>
   |- src/
   |  |- app/
   |  |  |- <controllers, views>
