@@ -21,7 +21,7 @@ Angular unit testing, powered by [Karma Test Runner](http://karma-runner.github.
 ## Directory Structure
 
 ```
-gulangco-plage/
+gulangco-plate/
   |- gulp/
   |  |- config/
   |  |  |- karma.conf.coffee <test config>
