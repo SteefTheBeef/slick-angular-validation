@@ -1,10 +1,10 @@
 {
   "author": "Stefan Hellström",
-  "name": "ng-gulp",
-  "description": "Boilerplate build tasks for gulp/angular projects",
+  "name": "Gulangco Plate",
+  "description": "Yupp, yet another AngularJS project boilerplate and build tool!",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SteefTheBeef/ng-gulp.git"
+    "url": "git://github.com/SteefTheBeef/gulangco-plate"
   },
   "browserify": {
     "transform": [
