@@ -17,3 +17,31 @@ Angular unit testing, powered by [Karma](http://karma-runner.github.io) and [Jas
 - bower install
 - gulp build
 ```
+
+## Directory Structure
+```
+gulangco-plage/
+  |- gulp/
+  |  |- config/
+  |  |  |- karma.conf.coffee <test config>
+  |  |  |- paths.coffee <file paths config>
+  |  |- tasks/ <gulp tasks divided into separate files>
+  |- less <less files goes here>
+  |- src/
+  |  |- app/
+  |  |  |- <controllers, views>
+  |  |- common/
+  |  |  |- <services and directives>
+  |  |- less/
+  |  |  |- main.less
+  |- vendor/
+  |  |- angular-bootstrap/
+  |  |- bootstrap/
+  |  |- placeholders/
+  |- .bowerrc
+  |- bower.json
+  |- build.config.js
+  |- Gruntfile.js
+  |- module.prefix
+  |- module.suffix
+  |- package.json
