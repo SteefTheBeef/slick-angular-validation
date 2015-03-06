@@ -1,2 +1,2 @@
-# ng-gulp
-Boilerplate build tasks for gulp/angular projects
+# Gulangco Plate
+Yupp, yet another build tool!

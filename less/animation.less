@@ -1,0 +1,11 @@
+@import 'base';
+
+.animate-view {
+  &.ng-enter {
+  .transition(all 0.4s linear);
+    opacity: 0;
+    &.ng-enter-active {
+      opacity: 1;
+    }
+  }
+}
