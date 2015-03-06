@@ -33,8 +33,6 @@ gulangco-plage/
   |  |  |- <controllers, views>
   |  |- common/
   |  |  |- <services and directives>
-  |  |- less/
-  |  |  |- main.less
   |- bower.json
   |- gulpfile.coffee <gulp tasks defined in this file>
   |- package.json
