@@ -5,7 +5,7 @@ Gulangco Plate comes prepackaged with [jQuery](http://jquery.com), [Twitter Boot
 
 [LESS](http://lesscss.org) and [CoffeeScript](http://coffeescript.org) is supported out of the box. In fact, this whole project is written in CoffeeScript!
 
-Angular unit testing, powered by [Karma](http://karma-runner.github.io) and [Jasmine](http://jasmine.github.io) is available by simply running `gulp test`, there are a few example tests included to get you going.
+Angular unit testing, powered by [Karma Test Runner](http://karma-runner.github.io) and [Jasmine](http://jasmine.github.io) syntax is available by simply running `gulp test`, there are a few example tests included to get you going.
 
 ## Quick Start
 
@@ -27,10 +27,8 @@ gulangco-plage/
   |  |  |- karma.conf.coffee <test config>
   |  |  |- paths.coffee <file paths config>
   |  |- tasks/ <gulp tasks divided into separate files>
-  |- less <all styling belongs here>
-  |  |- animation.less <animation and transition styles>
-  |  |- base.less <mixins and variables>
-  |  |- layout.less <main styles>
+  |- less 
+  |  |- <all styles belong here>
   |- src/
   |  |- app/
   |  |  |- <controllers, views>
