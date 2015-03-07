@@ -9,7 +9,7 @@ Angular unit testing, powered by [Karma Test Runner](http://karma-runner.github.
 
 ## Quick Start
 
-```sh
+```
 - git clone git://github.com/SteefTheBeef/gulangco-plate
 - cd gulangco-plate
 - npm -g install gulp karma bower
@@ -41,4 +41,24 @@ gulangco-plate/
   |- gulpfile.coffee <gulp tasks defined in this file>
   |- package.json
   |- index.html
+```
+
+## Gulp tasks
+The most important ones are
+```
+gulp build
+gulp compile
+gulp test
+```
+### Gulp build
+this task does the following in order
+```
+cleans build dir
+copies vendor(bower) files
+compiles CoffeeScript files
+compiles LESS files
+copies html templates
+injects js and css files into index.html
+starts http server
+watches and recompiles on file changes
 ```
