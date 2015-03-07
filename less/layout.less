@@ -1,21 +1,42 @@
 @import 'base';
 @import '../bower_components/bootstrap/less/bootstrap.less';
 @import (inline) '../bower_components/angular-motion/dist/angular-motion.css';
-@import url('https://fonts.googleapis.com/css?family=Merriweather|Courgette');
+@import (inline) '../bower_components/bootstrap-additions/dist/bootstrap-additions.css';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Courgette');
 
+html {
+  margin: 0;
+  padding: 0;
+}
 body {
-  background: darkred;
-  color: white;
-  font-family: 'Merriweather', serif;
+  background: @bg-color;
+  color: @txt-color;
+  font-family: 'Open Sans', serif;
+  margin: 0;
+  padding: 0;
 }
 
-h1 {
+.c {
+  text-align: center;
+}
+
+h1.logo {
   font-size: 5em;
   font-family: Courgette, cursive;
+  text-align: center;
+  margin: 0;
+  padding: 0.5em 0;
+  color: yellowgreen;
 }
 
-.center {
-  text-align: center;
+h2 {
+  font-family: Courgette, cursive;
+  color: @txt-color;
+}
+
+.top-menu {
+  width: 100%;
+  background: #ead5b9;
 }
 
 .navbar {
@@ -29,4 +50,26 @@ h1 {
   }
 }
 
+a {
+  color: yellowgreen;
 
+  &:hover {
+    text-decoration: none;
+    color: lighten(yellowgreen, 20%);
+  }
+}
+
+p {
+  font-size: 1.2em;
+}
+
+.modal {
+  color: black;
+}
+
+.github {
+  font-family: Courgette, cursive;
+  text-align: center;
+  font-size: 2em;
+  padding-top: 3em;
+}

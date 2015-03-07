@@ -6,11 +6,15 @@
     <!-- endinject -->
 </head>
 <body ng-controller="mainCtrl">
-    <div ui-view="main" class="animate-view"></div>
-    <ul class="navbar">
-        <li><a ui-sref="main">Main route</a></li>
-        <li><a ui-sref="other">Other route</a></li>
-    </ul>
+    <a ui-sref="main"><h1 class="logo">Gulangco Plate</h1></a>
+    <div class="container">
+        <div ui-view="main" class="animate-view"></div>
+        <div class="row">
+            <div class="col-md-12 github">
+                <a href="https://github.com/SteefTheBeef/gulangco-plate">GitHub</a>
+            </div>
+        </div>
+    </div>
     <!-- inject:js -->
     <!-- endinject -->
 </body>
