@@ -73,3 +73,6 @@ Similar to build, but with a few differences, which are
 
 ### Gulp test
 Run unit tests
+
+## License
+MIT
