@@ -34,6 +34,9 @@ gulangco-plate/
   |  |  |- <controllers, views>
   |  |- common/
   |  |  |- <services and directives>
+  |  |- config/
+  |  |  |- registerModules.coffee <register angular modules and app dependecies>
+  |  |- app.coffee <routes in here>
   |- bower.json
   |- gulpfile.coffee <gulp tasks defined in this file>
   |- package.json
