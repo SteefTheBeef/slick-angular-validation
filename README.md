@@ -53,12 +53,23 @@ The most important ones are
 ### Gulp build
 this task does the following in order
 ```
-cleans build dir
-copies vendor(bower) files
-compiles CoffeeScript files
-compiles LESS files
-copies html templates
-injects js and css files into index.html
-starts http server
-watches and recompiles on file changes
+- cleans build dir
+- copies vendor(bower) files
+- compiles CoffeeScript files
+- compiles LESS into CSS files
+- copies html templates
+- injects js and css files into index.html
+- starts http server
+- watches and recompiles on file changes
 ```
+
+### Gulp compile
+Similar to build, but with a few differences, which are
+```
+- concat all html templates into angularJS templateCache
+- concat and uglifies all JS and CSS files.
+- does not watch for file changes
+```
+
+### Gulp test
+Run unit tests
