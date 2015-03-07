@@ -1,6 +1,8 @@
 # Gulangco Plate
 Yupp, another AngularJS project boilerplate and build tool!
 
+Gulp + AngularJS + CoffeeScript = Elegance and Speed
+
 Gulangco Plate comes prepackaged with [jQuery](http://jquery.com), [Twitter Bootstrap](http://getbootstrap.com), [AngularStrap](http://mgcrea.github.io/angular-strap), [Angular UI Router](https://github.com/angular-ui/ui-router) and some good-to-have native angular modules: ngAnimate, ngResource, ngSanitize and ngMock for testing purposes. 
 
 [LESS](http://lesscss.org) and [CoffeeScript](http://coffeescript.org) is supported out of the box. In fact, this whole project is written in CoffeeScript!
