@@ -1,4 +1,4 @@
-# Gulangco Plate
+# [Gulangco Plate](http://steefthebeef.github.io/gulangco-plate)
 Yupp, another AngularJS project boilerplate and build tool!
 
 Gulp + AngularJS + CoffeeScript = Elegance and Speed
