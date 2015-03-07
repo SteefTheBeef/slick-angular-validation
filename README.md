@@ -46,9 +46,9 @@ gulangco-plate/
 ## Gulp tasks
 The most important ones are
 ```
-gulp build
-gulp compile
-gulp test
+- gulp build
+- gulp compile
+- gulp test
 ```
 ### Gulp build
 this task does the following in order
