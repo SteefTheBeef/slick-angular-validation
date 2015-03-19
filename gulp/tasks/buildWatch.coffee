@@ -7,7 +7,7 @@ module.exports = () ->
   gulp.task 'b-watchHtml', -> require('./copyHtml.coffee')(paths.html.files, paths.build.directories.base)
   gulp.watch(paths.html.watch + '/**/*', ['b-watchHtml'])
 
-  gulp.task 'index', ['b-watchCoffee', 'b-watchLess'] ,-> require('./injectBuild.coffee')(paths.index, paths.inject.coffeeToJs(), paths.vendor, paths.inject.lessToCss(), paths.build.directories.base)
+  gulp.task 'index', ['coffee', 'less'] ,-> require('./injectBuild.coffee')(paths.index, paths.inject.coffeeToJs(), paths.vendor, paths.inject.lessToCss(), paths.build.directories.base)
   gulp.watch(paths.index, ['index'])
 
   gulp.task 'coffee', -> require('./coffee.coffee')(paths.coffee.files, paths.build.directories.base)

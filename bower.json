@@ -1,5 +1,4 @@
 {
-  "name": "slick-angular-validation",
   "dependencies": {
     "angular": "*",
     "jquery": "*",
