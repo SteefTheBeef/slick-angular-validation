@@ -25,15 +25,10 @@ obj =
     compile: [
       'src/config/registerModulesForCompile.coffee'
       'src/common/**/*.coffee'
-      '!src/app.coffee'
       '!src/**/*.spec.*'
     ]
   inject: {}
   index: './index.html'
-  html:
-    watch: 'src/**/*'
-    files: './src/**/*.html'
-    tpl: 'src/**/*.tpl.html'
 
 obj.inject.vendor = () ->
   obj.vendor.map (filename) -> filename.replace('bower_components/', obj.build.directories.vendor)
@@ -42,4 +37,3 @@ obj.inject.coffeeToJs = () ->
   obj.coffee.files.map (filename) -> obj.build.directories.base + filename.replace('.coffee', '.js')
 
 module.exports = obj
-
