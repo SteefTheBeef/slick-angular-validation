@@ -6,9 +6,6 @@ app.config( ($stateProvider, $urlRouterProvider) ->
   $urlRouterProvider.otherwise('/')
 )
 
-.run( ($rootScope, $state, titleService) ->
-  titleService.setPrefix('Gulangco Plate - ')
-  $rootScope.$on '$stateChangeSuccess', () ->
-    if $state.current.displayName
-      titleService.setTitle($state.current.displayName)
+.run( () ->
+
 )

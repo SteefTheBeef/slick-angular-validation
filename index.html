@@ -1,19 +1,33 @@
 <!doctype html>
 <html ng-app="plate">
 <head>
-    <title></title>
-    <!-- inject:css -->
-    <!-- endinject -->
+    <title>Slick angular validation</title>
+    <style>
+        body {
+            margin-top: 25px;
+        }
+
+        .container {
+            width: 960px;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body ng-controller="mainCtrl">
-    <a ui-sref="main"><h1 class="logo">Gulangco Plate</h1></a>
     <div class="container">
-        <div ui-view="main" class="animate-view"></div>
-        <div class="row">
-            <div class="col-md-12 github">
-                <a href="https://github.com/SteefTheBeef/gulangco-plate">GitHub</a>
-            </div>
-        </div>
+        <form name="form" novalidate>
+            <label for="">Keff</label>
+            <input type="text" ng-model="data.keff" name="keff" validate="required"/>
+            <label for="">Keff2</label>
+            <input type="text" ng-model="data.keff2" name="keff2" />
+            <label for="">instring</label>
+            <input type="text" ng-model="data.doh" name="doh" validate="maxlength:data.keff"/>
+            <label for="">number</label>
+            <input type="text" ng-model="data.num" name="num" validate="number"/>
+            <label for="">required if</label>
+            <input type="text" ng-model="data.gdfgdf" name="keff" validate="requiredif:data.keff=data.keff2"/>
+
+        </form>
     </div>
     <!-- inject:js -->
     <!-- endinject -->

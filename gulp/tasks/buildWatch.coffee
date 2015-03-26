@@ -13,7 +13,3 @@ module.exports = () ->
   gulp.task 'coffee', -> require('./coffee.coffee')(paths.coffee.files, paths.build.directories.base)
   gulp.task 'indexInjectCoffee', ['coffee'] ,-> require('./injectBuild.coffee')(paths.index, paths.inject.coffeeToJs(), paths.vendor, paths.inject.lessToCss(), paths.build.directories.base)
   gulp.watch(paths.coffee.base + '/**/*', ['indexInjectCoffee'])
-
-  gulp.task 'less', () -> require('./less.coffee')(paths.less.build, paths.build.directories.css)
-  gulp.task 'indexInjectLess', ['less'] ,-> require('./injectBuild.coffee')(paths.index, paths.inject.coffeeToJs(), paths.vendor, paths.inject.lessToCss(), paths.build.directories.base)
-  gulp.watch(paths.less.base + '/**/*', ['indexInjectLess'])
