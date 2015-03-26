@@ -1,8 +1,21 @@
 angular.module('slick-angular-validation', ['ngMessages']);
 
 angular.module('slick-angular-validation').directive('validate', ["$compile", "$injector", "validateAttributeHelper", "messageContainerFactory", function($compile, $injector, validateAttributeHelper, messageContainerFactory) {
-  var bindValidatorsAndCreateMessageContainer, unwatchers, validateCtrlNames;
+  var addWatcher, bindValidatorsAndCreateMessageContainer, unwatchers, validateCtrlNames;
   unwatchers = [];
+  addWatcher = function(watcher) {
+    var i, len, results, w;
+    if (angular.isArray(watcher)) {
+      results = [];
+      for (i = 0, len = watcher.length; i < len; i++) {
+        w = watcher[i];
+        results.push(unwatchers.push(w));
+      }
+      return results;
+    } else if (angular.isDefined(watcher)) {
+      return unwatchers.push(watcher);
+    }
+  };
   validateCtrlNames = function(formCtrl, modelCtrl) {
     if (!modelCtrl.$name) {
       throw 'missing attribute \'name\'';
@@ -12,13 +25,13 @@ angular.module('slick-angular-validation').directive('validate', ["$compile", "$
     }
   };
   bindValidatorsAndCreateMessageContainer = function(scope, element, formCtrl, modelCtrl, attrs) {
-    var arr, i, item, len, messageContainerElement, watchers;
+    var arr, i, item, len, messageContainerElement, watcher;
     messageContainerElement = messageContainerFactory.beginContainer(formCtrl.$name, modelCtrl.$name);
     arr = validateAttributeHelper.toObject(attrs);
     for (i = 0, len = arr.length; i < len; i++) {
       item = arr[i];
-      watchers = $injector.get(item.key).link(scope, modelCtrl, item.value);
-      console.log(watchers);
+      watcher = $injector.get(item.key).link(scope, modelCtrl, item.value);
+      addWatcher(watcher);
       messageContainerElement += messageContainerFactory.createMessageFromItem(item, element);
     }
     messageContainerElement += messageContainerFactory.endContainer();
@@ -34,7 +47,15 @@ angular.module('slick-angular-validation').directive('validate', ["$compile", "$
       validateCtrlNames(formCtrl, modelCtrl);
       bindValidatorsAndCreateMessageContainer(scope, element, formCtrl, modelCtrl, attrs);
       element.removeAttr('validate');
-      return scope.$on('$destroy', function() {});
+      return scope.$on('$destroy', function() {
+        var i, len, results, unwatch;
+        results = [];
+        for (i = 0, len = unwatchers.length; i < len; i++) {
+          unwatch = unwatchers[i];
+          results.push(unwatch());
+        }
+        return results;
+      });
     }
   };
 }]);
@@ -235,10 +256,7 @@ angular.module('slick-angular-validation').factory('accepted', function() {
     link: function(scope, ctrl) {
       ctrl.$validators.accepted = function(modelValue, viewValue) {
         var viewVal;
-        if (ctrl.$isEmpty(modelValue)) {
-          return true;
-        }
-        viewVal = viewValue.toLowerCase();
+        viewVal = viewValue.toString().toLowerCase();
         return viewVal === 'true' || viewVal === '1';
       };
     }
