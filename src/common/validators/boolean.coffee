@@ -12,4 +12,6 @@ angular.module('slick-angular-validation')
           when '0' then return true
 
         false
+
+      return
   }

@@ -4,4 +4,6 @@ angular.module('slick-angular-validation')
     link: (scope, ctrl) ->
       ctrl.$validators.required = (modelValue, viewValue) ->
         return not ctrl.$isEmpty(modelValue)
+
+      return
   }

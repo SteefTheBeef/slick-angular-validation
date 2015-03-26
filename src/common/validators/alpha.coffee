@@ -6,4 +6,6 @@ angular.module('slick-angular-validation')
         if ctrl.$isEmpty(modelValue) then return true
 
         /^[a-zA-Z]+$/i.test(viewValue)
+
+      return
   }

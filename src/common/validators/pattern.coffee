@@ -10,4 +10,6 @@ angular.module('slick-angular-validation')
 
       if isModel
         return scope.$watch pattern, () -> ctrl.$validate()
+
+      return
   }

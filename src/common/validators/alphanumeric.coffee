@@ -7,4 +7,5 @@ angular.module('slick-angular-validation')
 
         /^[a-zA-Z0-9]+$/i.test(viewValue)
 
+      return
   }

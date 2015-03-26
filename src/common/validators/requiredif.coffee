@@ -20,4 +20,6 @@ angular.module('slick-angular-validation')
       watchers.push(scope.$watch valueParts[0], () -> ctrl.$validate())
       if part1IsModel
         watchers.push(scope.$watch valueParts[1], () -> ctrl.$validate())
+
+      watchers
   }

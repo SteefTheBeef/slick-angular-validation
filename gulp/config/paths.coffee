@@ -17,6 +17,7 @@ obj =
     base: 'src/'
     build: [
       'src/config/registerModulesForBuild.coffee'
+      '!src/config/registerModulesForCompile.coffee'
       'src/common/**/*.coffee'
       'src/**/*.coffee'
       'src/app.coffee'
@@ -24,6 +25,7 @@ obj =
     ]
     compile: [
       'src/config/registerModulesForCompile.coffee'
+      '!src/config/registerModulesForBuild.coffee'
       'src/common/**/*.coffee'
       '!src/**/*.spec.*'
     ]
@@ -34,6 +36,6 @@ obj.inject.vendor = () ->
   obj.vendor.map (filename) -> filename.replace('bower_components/', obj.build.directories.vendor)
 
 obj.inject.coffeeToJs = () ->
-  obj.coffee.files.map (filename) -> obj.build.directories.base + filename.replace('.coffee', '.js')
+  obj.coffee.build.map (filename) -> obj.build.directories.base + filename.replace('.coffee', '.js')
 
 module.exports = obj

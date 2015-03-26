@@ -15,4 +15,8 @@ angular.module('slick-angular-validation')
 
         parsedViewValue >= parsedMin
 
+      if isModel
+        return scope.$watch minValue, () -> ctrl.$validate()
+
+      return
   }

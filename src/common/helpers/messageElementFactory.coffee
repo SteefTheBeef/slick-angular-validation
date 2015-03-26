@@ -1,5 +1,5 @@
 angular.module('slick-angular-validation')
-.factory 'messageContainerFactory', (SlickValidation) ->
+.factory 'messageContainerFactory', (SlickAngularValidation) ->
   findNameOfOtherField = (element, itemValue) ->
     form = element.parents('form').first()
     unless form.length then return false
@@ -11,7 +11,7 @@ angular.module('slick-angular-validation')
   getMessage = (item, element) ->
     if item.customMessage then return item.customMessage
 
-    messageObj = SlickValidation.getMessage(item.key)
+    messageObj = SlickAngularValidation.getMessage(item.key)
 
     if messageObj.findName
       name = findNameOfOtherField(element, item.value)
@@ -20,14 +20,11 @@ angular.module('slick-angular-validation')
     messageObj.message.replace('#value', item.value)
   {
     beginContainer: (formCtrlName, modelCtrlName) ->
-      '<ul ng-messages="' + formCtrlName + '.'+ modelCtrlName + '.$error" class="slick-validation-messages">'
+      '<ul ng-messages="' + formCtrlName + '.'+ modelCtrlName + '.$error" class="slick-angular-validation-messages">'
 
     createMessageFromItem: (item, element) ->
       '<li ng-message="' + item.key + '">' + getMessage(item, element) + '</li>'
 
     endContainer: () ->
       '</ul>'
-
-    getTemplate: () ->
-      '<div ng-messages="' +  + '.'+ modelCtrlName + '.$error">'
   }

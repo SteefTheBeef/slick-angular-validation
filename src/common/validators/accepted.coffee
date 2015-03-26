@@ -7,4 +7,6 @@ angular.module('slick-angular-validation')
 
         viewVal = viewValue.toLowerCase();
         return viewVal is 'true' or viewVal is '1'
+
+      return
   }

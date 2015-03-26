@@ -11,4 +11,6 @@ angular.module('slick-angular-validation')
 
       if isModel
         return scope.$watch minlength, () -> ctrl.$validate()
+
+      return
   }

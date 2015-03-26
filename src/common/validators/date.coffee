@@ -7,4 +7,6 @@ angular.module('slick-angular-validation')
 
         test = new Date(viewValue)
         return dateHelper.isValid(test)
+
+      return
   }

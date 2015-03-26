@@ -5,4 +5,6 @@ angular.module('slick-angular-validation')
       ctrl.$validators.number = (modelValue, viewValue) ->
         if ctrl.$isEmpty(modelValue) then return true
         !isNaN(viewValue)
+
+      return
   }

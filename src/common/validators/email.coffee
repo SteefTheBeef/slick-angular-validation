@@ -7,4 +7,6 @@ angular.module('slick-angular-validation')
 
         regex = /^[A-Z0-9_'%=+!`#~$*?^{}&|-]+([\.][A-Z0-9_'%=+!`#~$*?^{}&|-]+)*@[A-Z0-9-]+(\.[A-Z0-9-]+)+$/i
         regex.test(viewValue)
+
+      return
   }

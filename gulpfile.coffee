@@ -10,12 +10,11 @@ general =
 
 build =
   copyVendor: () -> require('./gulp/tasks/copyVendor.coffee')(paths.vendor, paths.build.directories.base)
-  coffee: () -> require('./gulp/tasks/coffee.coffee')(paths.coffee.files, paths.build.directories.base)
-  inject: () -> require('./gulp/tasks/injectBuild.coffee')(paths.index, paths.inject.coffeeToJs(), paths.vendor, paths.inject.lessToCss(), paths.build.directories.base)
+  coffee: () -> require('./gulp/tasks/coffee.coffee')(paths.coffee.build, paths.build.directories.base)
+  inject: () -> require('./gulp/tasks/injectBuild.coffee')(paths.index, paths.inject.coffeeToJs(), paths.vendor, paths.build.directories.base)
   webserver: () -> require('./gulp/tasks/webserver.coffee')(paths.build.directories.base)
 
 compile =
-  minifyJS: () -> require('./gulp/tasks/minifyJS.coffee')(paths.vendor, 'vendor.js', paths.dist.directories.tmp)
   minifyCoffeeToJs: () -> require('./gulp/tasks/minifyCoffeeToJs.coffee')(paths.coffee.compile, 'slick-angular-validation', paths.dist)
 
 # Test tasks
@@ -27,7 +26,7 @@ gulp.task 'b-copyVendor', ['b-clean'], () -> build.copyVendor()
 gulp.task 'b-coffee', ['b-clean'], () -> build.coffee()
 gulp.task 'b-inject', ['b-clean', 'b-copyVendor', 'b-coffee'], () -> build.inject()
 gulp.task 'b-webserver', ['b-clean', 'b-copyVendor', 'b-coffee', 'b-inject'], () -> general.webserver(paths.build.directories.base)
-gulp.task 'build', ['b-clean', 'b-copyVendor', 'b-coffee', 'b-inject','b-less', 'b-webserver'], () ->
+gulp.task 'build', ['b-clean', 'b-copyVendor', 'b-coffee', 'b-inject', 'b-webserver'], () ->
   require('./gulp/tasks/buildWatch.coffee')(paths.coffee, paths.build.directories.js)
 
 # compile tasks

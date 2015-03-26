@@ -1,6 +1,6 @@
 angular.module('slick-angular-validation')
 
-.provider 'SlickValidation', () ->
+.provider 'SlickAngularValidation', () ->
 
   @messages = {
     accepted: { message: 'must be accepted' }
