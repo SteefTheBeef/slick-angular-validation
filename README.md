@@ -20,6 +20,7 @@ Put a validate attribute on any form element. Some examples:
 
 ## Validators
 **accepted**  
-is valid when value is true or 1
+valid values: **true** or **1**   
+example: `<input type="checkbox" name="terms" ng-model="data.terms" validate="accepted">`
 
 TODO.. more to come
