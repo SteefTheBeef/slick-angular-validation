@@ -47,7 +47,7 @@ If you wish to change it you can do this in two ways:
 Use attribute **validate-messages**:    
 `<input ... validate="alphanumeric" validate-messages="alphanumeric:Only letters and numbers!"/>`  
 
-#### Global scale
+#### On a global scale
 Inject ***SlickAngularValidationProvider*** into the config part of your app:
 ```
 app.config( function (SlickAngularValidationProvider) {
@@ -69,7 +69,7 @@ matches:3ecretPassword - again match against a string, if first character is a n
 
 So by specifying a model as our argument we can have a very dynamic validation if we wish. This combined with the large number of available validators makes this package very versatile.   
 
-### Prebuilt validators 
+#### Prebuilt validators 
 
 * **accepted**
   - valid values: **true or 1**   
@@ -108,17 +108,72 @@ So by specifying a model as our argument we can have a very dynamic validation i
 * **instring** (case sensitive) or **instringi** (case insensitive)
   - valid values: **value is found within the specified value or model, partial matches are fine**  
   - example: `<input type="text" name="name" ng-model="data.name" validate="instring:'Teacher'">`
-  - example: `<input type="text" name="date" ng-model="data.name" validate="instring: data.firstName">`
+  - example: `<input type="text" name="date" ng-model="data.name" validate="instring:data.firstName">`
   - More info: either compare to a string or another model. 
   
 * **match** (case sensitive) or **matchi** (case insensitive)
   - valid values: **value is found within the specified value or model, partial matches are fine**  
   - example: `<input type="text" name="name" ng-model="data.name" validate="instring:'Teacher'">`
-  - example: `<input type="text" name="date" ng-model="data.name" validate="instring: data.firstName">`
+  - example: `<input type="text" name="date" ng-model="data.name" validate="instring:data.firstName">`
   - More info: either compare to a string or another model. 
 
 * **max**
-  - valid values: **value is less or equal to the specified max valu**  
-  - example: `<input type="text" name="name" ng-model="data.name" validate="max:3">`
-  - example: `<input type="text" name="date" ng-model="data.name" validate="instring: data.firstName">`
-  - More info: either compare to a string or another model. 
+  - valid values: **value is less or equal to the specified max value**  
+  - example: `<input type="text" name="age" ng-model="data.age" validate="max:17">`
+  - example: `<input type="text" name="age" ng-model="data.age" validate="max:data.maximumAge">`
+  - More info: either compare to a string or another model.
+
+* **maxdate** (great to use in conjuction with mindate)
+  - valid values: **date precedes the specified max date**  
+  - example: `<input type="date" name="sDate" ng-model="data.sDate" validate="maxdate:2015-02-03">`
+  - example: `<input type="date" name="sDate" ng-model="data.sDate" validate="maxdate:data.endDate">`
+  - More info: either compare to a string or another model.
+
+* **maxlength** 
+  - valid values: **character count of value is less or equal to the specified max length**  
+  - example: `<input type="text" name="name" ng-model="data.name" validate="maxlength:20">`
+  - example: `<input type="text" name="name" ng-model="data.name" validate="maxdate:data.maxlength">`
+  - More info: either compare to a string or another model.
+
+* **min**
+  - valid values: **value is greater or equal to the specified min value**  
+  - example: `<input type="text" name="age" ng-model="data.age" validate="min:18">`
+  - example: `<input type="text" name="age" ng-model="data.age" validate="max:data.minimumAge">`
+  - More info: either compare to a string or another model.
+
+* **mindate** (great to use in conjuction with maxdate)
+  - valid values: **date should come after the specified min date**  
+  - example: `<input type="date" name="eDate" ng-model="data.eDate" validate="mindate:2015-02-03">`
+  - example: `<input type="date" name="eDate" ng-model="data.eDate" validate="mindate:data.startDate">`
+  - More info: either compare to a string or another model.
+
+* **minlength** 
+  - valid values: **character count of value is greater or equal to the specified min length**  
+  - example: `<input type="text" name="name" ng-model="data.name" validate="minlength:20">`
+  - example: `<input type="text" name="name" ng-model="data.name" validate="minlength:data.minlength">`
+  - More info: either compare to a string or another model.
+
+* **number** 
+  - valid values: **any valid number**  
+  - example: `<input type="text" name="num" ng-model="data.num" validate="number">`
+
+* **pattern** 
+  - valid values: **anything that the matches the pattern**  
+  - example: `<input type="text" name="name" ng-model="data.name" validate="pattern:'/^[a-zA-Z0-9]+$/'"/>">`
+  - example: `<input type="text" name="name" ng-model="data.name" validate="pattern:allowedPattern">`
+  - More info: either compare to a string or another model.
+
+* **required** 
+  - valid values: **anything that is not empty!**  
+  - example: `<input type="text" name="name" ng-model="data.name" validate="required">`
+
+* **requiredif** 
+  - valid values: **anything that is not empty, when the if statment is fulfilled**  
+  - example: `<input type="text" name="lastName" ng-model="data.lastName" validate="requiredif:data.firstName>`
+  - example: `<input type="text" name="lastName" ng-model="data.lastName" validate="requiredif:data.firstName='Eva'">`
+  - example: `<input type="text" name="lastName" ng-model="data.lastName" validate="requiredif:data.firstname=otherUser.firstName">`
+  - More info: either compare to a string or another model.
+  
+* **url** 
+  - valid values: **valid urls**  
+  - example: `<input type="text" name="website" ng-model="data.website" validate="url">`
