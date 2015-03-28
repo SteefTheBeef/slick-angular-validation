@@ -41,6 +41,14 @@ With the pipe (|) delimeter you can combine as many validators as you like.
 
 
 ## Validators
+
+Some validators takes one argument, syntax is **validator:argument**.   
+The argument can either be of type string or model. 
+For instance:  
+matches:'yourSecretPassword' - to compare to string
+matches:user.passwordConfirm - skip quoutes to compare to another model
+matches:3ecretPassword - compare to string, if first character is a number it will be interpreted as a string
+
 * **accepted**
   - valid values: **true or 1**   
   - example: `<input type="checkbox" name="terms" ng-model="data.terms" validate="accepted">`  
@@ -62,11 +70,33 @@ With the pipe (|) delimeter you can combine as many validators as you like.
   - example: `<input type="text" name="isGreat" ng-model="data.isGreat" validate="boolean">`
 
 * **date**
-  - valid values: **a valid date**  
+  - valid values: **valid dates**  
   - example: `<input type="text" name="date" ng-model="data.date" validate="date">`
 
-* **different**
-  - valid values: **any value that is different from the one specified**  
+* **different** (case sensitive) or **differenti** (case insensitive)
+  - valid values: **any value that is different from the specified value or model**  
   - example: `<input type="text" name="name" ng-model="data.name" validate="different:'Teacher'">`
-  - example: `<input type="text" name="date" ng-model="data.lastName" validate="different: data.firstName">`
+  - example: `<input type="text" name="date" ng-model="data.lastName" validate="differenti: data.firstName">`
   - More info: As is shown above, it is possible to either compare your model to a string by putting single quotes around it, or compare it to another model found in the scope
+
+* **email**
+  - valid values: **valid email adresses**  
+  - example: `<input type="text" name="name" ng-model="data.name" validate="email">`
+
+* **instring** (case sensitive) or **instringi** (case insensitive)
+  - valid values: **value is found within the specified value or model, partial matches are fine**  
+  - example: `<input type="text" name="name" ng-model="data.name" validate="instring:'Teacher'">`
+  - example: `<input type="text" name="date" ng-model="data.name" validate="instring: data.firstName">`
+  - More info: either compare either to a string or another model. 
+  
+* **match** (case sensitive) or **matchi** (case insensitive)
+  - valid values: **value is found within the specified value or model, partial matches are fine**  
+  - example: `<input type="text" name="name" ng-model="data.name" validate="instring:'Teacher'">`
+  - example: `<input type="text" name="date" ng-model="data.name" validate="instring: data.firstName">`
+  - More info: either compare either to a string or another model.
+
+* **max**
+  - valid values: **value is less or equal to the specified max valu**  
+  - example: `<input type="text" name="name" ng-model="data.name" validate="max:3">`
+  - example: `<input type="text" name="date" ng-model="data.name" validate="instring: data.firstName">`
+  - More info: either compare either to a string or another model. 
