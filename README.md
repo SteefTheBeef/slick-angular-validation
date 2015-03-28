@@ -185,16 +185,18 @@ So by specifying a model as our argument we can have a very dynamic validation i
 To create and use your own custom validator is simple. Just create a service with the name you want.
 For a simple validator without argument it should follow this look:
 ```JavaScript
-angular.module('yourModule')
-.factory('customvalidator', function () {
-  {
+angular.module('yourModule').factory('customvalidator', function () {
+  return {
     link: function (scope, ctrl) {
       ctrl.$validators.customvalidator = function (modelValue, viewValue) {
         // if value is empty it should pass validation
         // we use validator 'required' to check for empty values
-        if ctrl.$isEmpty(modelValue) then return true
-
-        .... your validation code ...
+        if ctrl.$isEmpty(modelValue) {
+          return true
+        }
+        
+        .... your custom validation code ...
+        
         // all is fine
         return true
       }
@@ -205,16 +207,15 @@ angular.module('yourModule')
 
 **alpha validator example:**
 ```JavaScript
-angular.module('slick-angular-validation')
-.factory('alpha', function () {
-  {
+angular.module('slick-angular-validation').factory('alpha', function () {
+  return {
     link: function (scope, ctrl) {
       ctrl.$validators.customvalidator = function (modelValue, viewValue) {
-        // if value is empty it should pass validation
-        // we use validator 'required' to check for empty values
-        if ctrl.$isEmpty(modelValue) then return true
-
-        return /^[a-zA-Z]+$/i.test(viewValue)
+        if (ctrl.$isEmpty(modelValue)) {
+          return true;
+        }
+        
+        return /^[a-zA-Z]+$/i.test(viewValue);
       }
     }
   };
