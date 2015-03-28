@@ -64,10 +64,10 @@ app.config( function (SlickAngularValidationProvider) {
 Some validators takes one argument, syntax is **validator:argument**.   
 The argument can either be of type ***string*** or ***model*** (any property on the scope really)  
 
-For instance, if we use validator **matches** (which is great to use for password confirmation by the way!):  
-matches:'yourSecretPassword' - wrap it single quotes to match our model value against a fixed string   
-matches:user.passwordConfirm - skip quoutes to compare model value to the value of another model 
-matches:3ecretPassword - again match against a string, if first character is a number it will be interpreted as a string    
+For instance, if we use validator **match** (which is great to use for password confirmation by the way!):  
+match:'yourSecretPassword' - wrap it single quotes to match our model value against a fixed string   
+match:user.passwordConfirm - skip quoutes to compare model value to the value of another model 
+match:3ecretPassword - again match against a string, if first character is a number it will be interpreted as a string    
 
 So by specifying a model as our argument we can have a very dynamic validation if we wish. This combined with the large number of available validators makes this package very versatile.   
 
@@ -203,7 +203,7 @@ angular.module('yourModule')
 });
 ```
 
-alpha validator example:
+**alpha validator example:**
 ```JavaScript
 angular.module('slick-angular-validation')
 .factory('alpha', function () {
@@ -219,4 +219,34 @@ angular.module('slick-angular-validation')
     }
   };
 });
+```
+for more advanced validators that takes an argument, take a look at the match validator:
+```JavaScript
+// valueHelper will help determine the value of the argument
+angular.module('slick-angular-validation').factory('match', ["valueHelper", function(valueHelper) {
+  return {
+    link: function(scope, ctrl, argument) {
+      var isModel;
+      isModel = valueHelper.isModel(argument);
+      
+      ctrl.$validators.match = function(modelValue, viewValue) {
+        var otherValue;
+        
+        if (ctrl.$isEmpty(modelValue)) {
+          return true;
+        }
+        
+        // 
+        otherValue = valueHelper.getValue(scope, isModel, argument);
+        return viewValue === otherValue;
+      };
+      
+      if (isModel) {
+        return scope.$watch(argument, function() {
+          ctrl.$validate();
+        });
+      }
+    }
+  };
+}]);
 ```
