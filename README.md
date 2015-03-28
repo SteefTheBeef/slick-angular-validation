@@ -13,13 +13,13 @@ Slick form validation for AngularJS.
 * jQuery
 * ngMessages, angular module 
 
-##
+## How it works
 Native validation in angular works like this:
 ```
 <form name="signup" novalidate>
   <input type="text" name="name" ng-model="user.name" required ng-minlength="7" 
   ng-pattern="/^[a-zA-Z0-9]+$/"/>
-  <ul ng-messages="signup.username.$error">
+  <ul ng-messages="signup.name.$error">
     <li ng-message="required">field is required</li>
     <li ng-message="minlength">field is too short</li>
     <li ng-message="pattern">only alphanumeric characters allowed</li>
