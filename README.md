@@ -26,7 +26,7 @@ Native validation in angular works like this:
   </ul>
 </form>
 ```
-Writing this gets messy and tiresome pretty fast, especially if your form contains alot of fields that require validation.
+This is messy and writing all of this code gets tiresome pretty fast, especially if your app contains alot of fields that require validation.
 
 With slick angular validation you do this:
 ```
