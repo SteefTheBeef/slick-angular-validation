@@ -44,17 +44,19 @@ Each validator comes with a default error message.
 If you wish to change it you can do this in two ways:  
 
 #### Per field
-Use attribute **validate-messages**:    
-`<input ... validate="alphanumeric" validate-messages="alphanumeric:Only letters and numbers!"/>`  
+Use attribute **validate-messages**:
+```html 
+<input ... validate="alphanumeric" validate-messages="alphanumeric:Only letters and numbers!"/>
+```  
 
 #### On a global scale
 Inject ***SlickAngularValidationProvider*** into the config part of your app:
-```
-app.config( function (SlickAngularValidationProvider) {
+```CoffeeScript
+app.config( function (SlickAngularValidationProvider) ->
   SlickAngularValidationProvider.setMessage('alphanumeric', 'Only letters and numbers!')
   // note that #argument is replaced by the value of the argument when used
   SlickAngularValidationProvider.setMessage('minlength', 'minimum length of field is #argument')
-})
+)
 ```
 
 ## Validators
@@ -177,3 +179,20 @@ So by specifying a model as our argument we can have a very dynamic validation i
 * **url** 
   - valid values: **valid urls**  
   - example: `<input type="text" name="website" ng-model="data.website" validate="url">`
+
+## Creating your own validators
+
+Just create a service with the name you want. It should follow this look:
+```CoffeeScript
+angular.module('slick-angular-validation')
+.factory 'alpha', () ->
+  {
+    link: (scope, ctrl) ->
+      ctrl.$validators.alpha = (modelValue, viewValue) ->
+        if ctrl.$isEmpty(modelValue) then return true
+
+        /^[a-zA-Z]+$/i.test(viewValue)
+
+      return
+  }
+```
