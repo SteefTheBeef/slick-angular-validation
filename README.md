@@ -235,12 +235,13 @@ angular.module('slick-angular-validation').factory('match', ["valueHelper", func
         if (ctrl.$isEmpty(modelValue)) {
           return true;
         }
-        
-        // 
+
         otherValue = valueHelper.getValue(scope, isModel, argument);
         return viewValue === otherValue;
       };
       
+      // if the argument is another model then we should watch it for changes, 
+      // do not forget to return the watcher! 
       if (isModel) {
         return scope.$watch(argument, function() {
           ctrl.$validate();
