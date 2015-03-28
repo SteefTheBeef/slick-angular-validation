@@ -41,18 +41,18 @@ With the pipe (|) delimeter you can combine as many validators as you like.
 
 
 ## Validators
-* **accepted**  
+* **accepted**
   - valid values: **true or 1**   
   - example: `<input type="checkbox" name="terms" ng-model="data.terms" validate="accepted">`  
 
-* **alpha**  
+* **alpha**
   - valid values: **alphabetic characters**  
   - example: `<input type="text" name="address" ng-model="data.address" validate="alpha">`  
 
-* **alphadash**  
+* **alphadash**
   - valid values: **alphabetic characters, numbers, - and _**  
   - example: `<input type="text" name="zip" ng-model="data.zip" validate="alphadash">`  
 
-* **alphadash**  
+* **alphadash**
   - valid values: **alphabetic characters, numbers, - and _**  
   - example: `<input type="text" name="zip" ng-model="data.zip" validate="alphadash">`  
