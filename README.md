@@ -15,7 +15,7 @@ Slick form validation for your AngularJS apps.
 
 ## How it works
 Native validation in angular works like this:
-```
+```html
 <form name="signup" novalidate>
   <input type="text" name="name" ng-model="user.name" required ng-minlength="7" 
   ng-pattern="/^[a-zA-Z0-9]+$/"/>
@@ -29,7 +29,7 @@ Native validation in angular works like this:
 This is messy and writing all of this code gets tiresome pretty fast, especially if your app contains alot of fields that require validation.
 
 With Slick Angular Validation you do this:
-```
+```html
 <form name="signup" novalidate>
   <input type="text" name="username" ng-model="user.name" validate="required|minlength:7|alphanumeric"/> 
 </form>
@@ -51,12 +51,12 @@ Use attribute **validate-messages**:
 
 #### On a global scale
 Inject ***SlickAngularValidationProvider*** into the config part of your app:
-```CoffeeScript
-app.config( function (SlickAngularValidationProvider) ->
-  SlickAngularValidationProvider.setMessage('alphanumeric', 'Only letters and numbers!')
+```JavaScript
+app.config( function (SlickAngularValidationProvider) {
+  SlickAngularValidationProvider.setMessage('alphanumeric', 'Only letters and numbers!');
   // note that #argument is replaced by the value of the argument when used
-  SlickAngularValidationProvider.setMessage('minlength', 'minimum length of field is #argument')
-)
+  SlickAngularValidationProvider.setMessage('minlength', 'minimum length of field is #argument');
+})
 ```
 
 ## Validators
@@ -180,19 +180,43 @@ So by specifying a model as our argument we can have a very dynamic validation i
   - valid values: **valid urls**  
   - example: `<input type="text" name="website" ng-model="data.website" validate="url">`
 
-## Creating your own validators
+## Creating custom validators
 
-Just create a service with the name you want. It should follow this look:
-```CoffeeScript
-angular.module('slick-angular-validation')
-.factory 'alpha', () ->
+To create and use your own custom validator is simple. Just create a service with the name you want.
+For a simple validator without argument it should follow this look:
+```JavaScript
+angular.module('yourModule')
+.factory('customvalidator', function () {
   {
-    link: (scope, ctrl) ->
-      ctrl.$validators.alpha = (modelValue, viewValue) ->
+    link: function (scope, ctrl) {
+      ctrl.$validators.customvalidator = function (modelValue, viewValue) {
+        // if value is empty it should pass validation
+        // we use validator 'required' to check for empty values
         if ctrl.$isEmpty(modelValue) then return true
 
-        /^[a-zA-Z]+$/i.test(viewValue)
+        .... your validation code ...
+        // all is fine
+        return true
+      }
+    }
+  };
+});
+```
 
-      return
-  }
+alpha validator example:
+```JavaScript
+angular.module('slick-angular-validation')
+.factory('alpha', function () {
+  {
+    link: function (scope, ctrl) {
+      ctrl.$validators.customvalidator = function (modelValue, viewValue) {
+        // if value is empty it should pass validation
+        // we use validator 'required' to check for empty values
+        if ctrl.$isEmpty(modelValue) then return true
+
+        return /^[a-zA-Z]+$/i.test(viewValue)
+      }
+    }
+  };
+});
 ```
