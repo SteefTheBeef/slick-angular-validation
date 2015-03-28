@@ -50,9 +50,23 @@ With the pipe (|) delimeter you can combine as many validators as you like.
   - example: `<input type="text" name="address" ng-model="data.address" validate="alpha">`  
 
 * **alphadash**
-  - valid values: **alphabetic characters, numbers, - and _**  
+  - valid values: **alphabetic characters, digits, - and _**  
   - example: `<input type="text" name="zip" ng-model="data.zip" validate="alphadash">`  
 
-* **alphadash**
-  - valid values: **alphabetic characters, numbers, - and _**  
-  - example: `<input type="text" name="zip" ng-model="data.zip" validate="alphadash">`  
+* **alphanumeric**
+  - valid values: **alphabetic characters and digits**  
+  - example: `<input type="text" name="name" ng-model="data.name" validate="alphanumeric">`
+
+* **boolean**
+  - valid values: **true, false, 1 and 0**  
+  - example: `<input type="text" name="isGreat" ng-model="data.isGreat" validate="boolean">`
+
+* **date**
+  - valid values: **a valid date**  
+  - example: `<input type="text" name="date" ng-model="data.date" validate="date">`
+
+* **different**
+  - valid values: **any value that is different from the one specified**  
+  - example: `<input type="text" name="name" ng-model="data.name" validate="different:'Teacher'">`
+  - example: `<input type="text" name="date" ng-model="data.lastName" validate="different: data.firstName">`
+  - More info: As is shown above, it is possible to either compare your model to a string by putting single quotes around it, or compare it to another model found in the scope
