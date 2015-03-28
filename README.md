@@ -43,7 +43,7 @@ With the pipe (|) delimeter you can combine as many validators as you like.
 ## Validators
 
 Some validators takes one argument, syntax is **validator:argument**.   
-The argument can either be of type string or model (any property on the scope)
+The argument can either be of type ***string*** or model (any property on the scope really)
 For instance, if we use validator **matches** (which is great to use for password confirmation by the way!):  
 
 matches:'yourSecretPassword' - wrap it single quotes to match our model value against a fixed string   
