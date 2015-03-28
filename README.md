@@ -40,12 +40,22 @@ Done!
 With the pipe (|) delimeter you can combine as many validators as you like.
 
 ## Error Messages
-Each validator comes with a default error message. If you wish to change it you can do this in two ways:  
+Each validator comes with a default error message.   
+If you wish to change it you can do this in two ways:  
 
-**Per field basis**   
+#### Per field
 Use attribute **validate-messages**:    
-`<input ... validate="alphanumeric" validate-messages="alphanumeric:Only letters and numbers!"/>` 
+`<input ... validate="alphanumeric" validate-messages="alphanumeric:Only letters and numbers!"/>`  
 
+#### Global scale
+Inject ***SlickAngularValidationProvider*** into the config part of your app:
+```
+app.config( function (SlickAngularValidationProvider) {
+  SlickAngularValidationProvider.setMessage('alphanumeric', 'Only letters and numbers!')
+  // note that #argument is replaced by the value of the argument when used
+  SlickAngularValidationProvider.setMessage('minlength', 'minimum length of field is #argument')
+})
+```
 
 ## Validators
 
@@ -59,7 +69,7 @@ matches:3ecretPassword - again match against a string, if first character is a n
 
 So by specifying a model as our argument we can have a very dynamic validation if we wish. This combined with the large number of available validators makes this package very versatile.   
 
-## 
+### Prebuilt validators 
 
 * **accepted**
   - valid values: **true or 1**   
