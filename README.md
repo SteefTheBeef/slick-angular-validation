@@ -52,11 +52,11 @@ Use attribute **validate-messages**:
 #### On a global scale
 Inject ***SlickAngularValidationProvider*** into the config part of your app:
 ```JavaScript
-app.config( function (SlickAngularValidationProvider) {
+app.config(["SlickAngularValidationProvider", function (SlickAngularValidationProvider) {
   SlickAngularValidationProvider.setMessage('alphanumeric', 'Only letters and numbers!');
   // note that #argument is replaced by the value of the argument when used
   SlickAngularValidationProvider.setMessage('minlength', 'minimum length of field is #argument');
-})
+}])
 ```
 
 ## Validators
@@ -210,7 +210,7 @@ angular.module('yourModule').factory('customvalidator', function () {
 angular.module('slick-angular-validation').factory('alpha', function () {
   return {
     link: function (scope, ctrl) {
-      ctrl.$validators.customvalidator = function (modelValue, viewValue) {
+      ctrl.$validators.alpha = function (modelValue, viewValue) {
         if (ctrl.$isEmpty(modelValue)) {
           return true;
         }
@@ -252,3 +252,16 @@ angular.module('slick-angular-validation').factory('match', ["valueHelper", func
   };
 }]);
 ```
+
+You should also set default error message for your custom validator:
+```JavaScript
+app.config(["SlickAngularValidationProvider", function (SlickAngularValidationProvider) {
+  SlickAngularValidationProvider.setMessage('customvalidator', 'only custom values thanks!');
+}])
+```
+
+## License
+MIT
+
+## TODO
+Tests
