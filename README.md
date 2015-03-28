@@ -260,8 +260,8 @@ app.config(["SlickAngularValidationProvider", function (SlickAngularValidationPr
 }])
 ```
 
-## License
-MIT
-
 ## TODO
 Tests
+
+## License
+MIT
