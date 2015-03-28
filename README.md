@@ -1,7 +1,7 @@
-Angular Validation
+Slick Angular Validation
 ============
 
-Slick form validation for AngularJS.
+Slick form validation for your AngularJS apps.
 
 ## Installation
 * `bower install slick-angular-validation`
@@ -28,7 +28,7 @@ Native validation in angular works like this:
 ```
 This is messy and writing all of this code gets tiresome pretty fast, especially if your app contains alot of fields that require validation.
 
-With slick angular validation you do this:
+With Slick Angular Validation you do this:
 ```
 <form name="signup" novalidate>
   <input type="text" name="username" ng-model="user.name" validate="required|minlength:7|alphanumeric/> 
@@ -37,12 +37,22 @@ With slick angular validation you do this:
 
 Done!  
 
-With the | (pipe) delimeter you can combine as many validators as you like.  
+With the pipe (|) delimeter you can combine as many validators as you like.  
 
 
 ## Validators
-**accepted**  
-valid values: **true** or **1**   
-example: `<input type="checkbox" name="terms" ng-model="data.terms" validate="accepted">`
+* **accepted**  
+  - valid values: **true or 1**   
+  - example: `<input type="checkbox" name="terms" ng-model="data.terms" validate="accepted">`  
 
-TODO.. more to come
+* **alpha**  
+  - valid values: **alphabetic characters**  
+  - example: `<input type="text" name="address" ng-model="data.address" validate="alpha">`  
+
+* **alphadash**  
+  - valid values: **alphabetic characters, numbers, - and _**  
+  - example: `<input type="text" name="zip" ng-model="data.zip" validate="alphadash">`  
+
+* **alphadash**  
+  - valid values: **alphabetic characters, numbers, - and _**  
+  - example: `<input type="text" name="zip" ng-model="data.zip" validate="alphadash">`  
