@@ -31,26 +31,35 @@ This is messy and writing all of this code gets tiresome pretty fast, especially
 With Slick Angular Validation you do this:
 ```
 <form name="signup" novalidate>
-  <input type="text" name="username" ng-model="user.name" validate="required|minlength:7|alphanumeric/> 
+  <input type="text" name="username" ng-model="user.name" validate="required|minlength:7|alphanumeric"/> 
 </form>
 ```
 
 Done!  
 
-With the pipe (|) delimeter you can combine as many validators as you like.  
+With the pipe (|) delimeter you can combine as many validators as you like.
+
+## Error Messages
+Each validator comes with a default error message. If you wish to change it you can do this in two ways:  
+
+**Per field basis**   
+Use attribute **validate-messages**:    
+`<input ... validate="alphanumeric" validate-messages="alphanumeric:Only letters and numbers!"/>` 
 
 
 ## Validators
 
 Some validators takes one argument, syntax is **validator:argument**.   
-The argument can either be of type ***string*** or model (any property on the scope really)
-For instance, if we use validator **matches** (which is great to use for password confirmation by the way!):  
+The argument can either be of type ***string*** or ***model*** (any property on the scope really)  
 
+For instance, if we use validator **matches** (which is great to use for password confirmation by the way!):  
 matches:'yourSecretPassword' - wrap it single quotes to match our model value against a fixed string   
 matches:user.passwordConfirm - skip quoutes to compare model value to the value of another model 
 matches:3ecretPassword - again match against a string, if first character is a number it will be interpreted as a string    
 
-So by specifying a model as our argument we can have a very dynamic validation if we wish. This combined with the amount of validators available makes this package very versatile.   
+So by specifying a model as our argument we can have a very dynamic validation if we wish. This combined with the large number of available validators makes this package very versatile.   
+
+## 
 
 * **accepted**
   - valid values: **true or 1**   
