@@ -1,13 +1,13 @@
 angular.module('slick-angular-validation')
-.factory 'instring', (valueHelper) ->
+.factory 'instringi', (valueHelper) ->
   {
     link: (scope, ctrl, haystack) ->
       isModel = valueHelper.isModel(haystack)
-      ctrl.$validators.instring = (modelValue, viewValue) ->
+      ctrl.$validators.instringi = (modelValue, viewValue) ->
         if ctrl.$isEmpty(modelValue) then return true
 
         value = valueHelper.getValue(scope, isModel, haystack)
-        value.indexOf(viewValue) isnt -1
+        value.toLowerCase().indexOf(viewValue.toLowerCase()) isnt -1
 
       if isModel
         return scope.$watch haystack, () -> ctrl.$validate()

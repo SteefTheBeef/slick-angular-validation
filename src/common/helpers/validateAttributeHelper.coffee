@@ -2,7 +2,7 @@ angular.module('slick-angular-validation')
 .factory 'validateAttributeHelper', () ->
   process = (attrs) ->
     customMessages = {}
-    if attrs.messages
+    if attrs.validateMessages
       attrs.messages.split('|').forEach (message) ->
         parts = message.split(':')
         throw "Validation message attributes incorrect: " + message unless parts.length is 2

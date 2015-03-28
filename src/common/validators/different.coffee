@@ -1,16 +1,17 @@
 angular.module('slick-angular-validation')
 .factory 'different', (valueHelper) ->
   {
-    link: (scope, ctrl, otherNgModelName) ->
-      isModel = valueHelper.isModel(otherNgModelName)
+    link: (scope, ctrl, argument) ->
+      isModel = valueHelper.isModel(argument)
+
       ctrl.$validators.different = (modelValue, viewValue) ->
         if ctrl.$isEmpty(modelValue) then return true
 
-        otherValue = valueHelper.getValue(scope, isModel, otherNgModelName)
+        otherValue = valueHelper.getValue(scope, isModel, argument)
         viewValue isnt otherValue
 
         if isModel
-          return scope.$watch otherNgModelName, () -> ctrl.$validate()
+          return scope.$watch argument, () -> ctrl.$validate()
 
       return
   }

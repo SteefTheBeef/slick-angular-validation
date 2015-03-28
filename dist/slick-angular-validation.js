@@ -86,18 +86,12 @@ angular.module('slick-angular-validation').factory('messageContainerFactory', ["
     return field.attr('name');
   };
   getMessage = function(item, element) {
-    var messageObj, name;
+    var messageObj;
     if (item.customMessage) {
       return item.customMessage;
     }
     messageObj = SlickAngularValidation.getMessage(item.key);
-    if (messageObj.findName) {
-      name = findNameOfOtherField(element, item.value);
-      if (name) {
-        return messageObj.message.replace('#value', name);
-      }
-    }
-    return messageObj.message.replace('#value', item.value);
+    return messageObj.message.replace('#argument', item.value);
   };
   return {
     beginContainer: function(formCtrlName, modelCtrlName) {
@@ -117,7 +111,7 @@ angular.module('slick-angular-validation').factory('validateAttributeHelper', fu
   process = function(attrs) {
     var customMessages;
     customMessages = {};
-    if (attrs.messages) {
+    if (attrs.validateMessages) {
       attrs.messages.split('|').forEach(function(message) {
         var parts;
         parts = message.split(':');
@@ -145,16 +139,23 @@ angular.module('slick-angular-validation').factory('validateAttributeHelper', fu
 });
 
 angular.module('slick-angular-validation').factory('valueHelper', ["$parse", function($parse) {
+  var startsWithDigit;
+  startsWithDigit = function(val) {
+    return /^[0-9]+/.test(val);
+  };
   return {
-    isModel: function(expression) {
-      if (/^[0-9]+/.test(expression)) {
+    isModel: function(val) {
+      if (startsWithDigit(val)) {
         return false;
       }
-      return !/^\'|\'$/.test(expression);
+      return !/^\'|\'$/.test(val);
     },
     getValue: function(scope, isModel, val) {
       if (isModel) {
         return $parse(val)(scope);
+      }
+      if (startsWithDigit(val)) {
+        return val;
       }
       return val.substring(1, val.length - 1);
     }
@@ -182,38 +183,43 @@ angular.module('slick-angular-validation').provider('SlickAngularValidation', fu
       message: 'is not a valid date'
     },
     different: {
-      message: 'should be different to #value',
-      findName: true
+      message: 'should be different to #argument'
+    },
+    differenti: {
+      message: 'should be different to #argument'
     },
     email: {
       message: 'is not a valid email'
     },
     instring: {
-      message: 'cannot be found within #value'
+      message: 'cannot be found within #argument'
+    },
+    instringi: {
+      message: 'cannot be found within #argument'
     },
     match: {
-      message: 'must match #value',
-      findName: true
+      message: 'must match #argument'
+    },
+    matchi: {
+      message: 'must match #argument'
     },
     max: {
-      message: 'cannot be greater than #value'
+      message: 'cannot be greater than #argument'
     },
     maxdate: {
-      message: 'should be less than #value',
-      findName: true
+      message: 'should be less than #argument'
     },
     maxlength: {
-      message: 'cannot exceed #value characters'
+      message: 'cannot exceed #argument characters'
     },
     min: {
-      message: 'cannot be less than #value'
+      message: 'cannot be less than #argument'
     },
     mindate: {
-      message: 'should be greater than #value',
-      findName: true
+      message: 'should be greater than #argument'
     },
     minlength: {
-      message: 'cannot be less than #value characters'
+      message: 'cannot be less than #argument characters'
     },
     number: {
       message: 'is not a valid number'
@@ -231,13 +237,9 @@ angular.module('slick-angular-validation').provider('SlickAngularValidation', fu
       message: 'is not a valid url'
     }
   };
-  this.setMessage = function(key, message, findName) {
-    if (findName == null) {
-      findName = false;
-    }
+  this.setMessage = function(key, message) {
     return this.messages[key] = {
-      message: message,
-      findName: findName
+      message: message
     };
   };
   this.$get = function() {
@@ -342,16 +344,38 @@ angular.module('slick-angular-validation').factory('date', ["dateHelper", functi
 
 angular.module('slick-angular-validation').factory('different', ["valueHelper", function(valueHelper) {
   return {
-    link: function(scope, ctrl, otherNgModelName) {
+    link: function(scope, ctrl, argument) {
       var isModel;
-      isModel = valueHelper.isModel(otherNgModelName);
+      isModel = valueHelper.isModel(argument);
       ctrl.$validators.different = function(modelValue, viewValue) {
         var otherValue;
         if (ctrl.$isEmpty(modelValue)) {
           return true;
         }
-        otherValue = valueHelper.getValue(scope, isModel, otherNgModelName);
+        otherValue = valueHelper.getValue(scope, isModel, argument);
         viewValue !== otherValue;
+        if (isModel) {
+          return scope.$watch(argument, function() {
+            return ctrl.$validate();
+          });
+        }
+      };
+    }
+  };
+}]);
+
+angular.module('slick-angular-validation').factory('differenti', ["valueHelper", function(valueHelper) {
+  return {
+    link: function(scope, ctrl, otherNgModelName) {
+      var isModel;
+      isModel = valueHelper.isModel(otherNgModelName);
+      ctrl.$validators.differenti = function(modelValue, viewValue) {
+        var otherValue;
+        if (ctrl.$isEmpty(modelValue)) {
+          return true;
+        }
+        otherValue = valueHelper.getValue(scope, isModel, otherNgModelName);
+        viewValue.toLowerCase() !== otherValue.toLowerCase();
         if (isModel) {
           return scope.$watch(otherNgModelName, function() {
             return ctrl.$validate();
@@ -388,6 +412,28 @@ angular.module('slick-angular-validation').factory('instring', ["valueHelper", f
           return true;
         }
         value = valueHelper.getValue(scope, isModel, haystack);
+        return value.indexOf(viewValue) !== -1;
+      };
+      if (isModel) {
+        return scope.$watch(haystack, function() {
+          return ctrl.$validate();
+        });
+      }
+    }
+  };
+}]);
+
+angular.module('slick-angular-validation').factory('instringi', ["valueHelper", function(valueHelper) {
+  return {
+    link: function(scope, ctrl, haystack) {
+      var isModel;
+      isModel = valueHelper.isModel(haystack);
+      ctrl.$validators.instringi = function(modelValue, viewValue) {
+        var value;
+        if (ctrl.$isEmpty(modelValue)) {
+          return true;
+        }
+        value = valueHelper.getValue(scope, isModel, haystack);
         return value.toLowerCase().indexOf(viewValue.toLowerCase()) !== -1;
       };
       if (isModel) {
@@ -411,6 +457,28 @@ angular.module('slick-angular-validation').factory('match', ["valueHelper", func
         }
         otherValue = valueHelper.getValue(scope, isModel, otherNgModelName);
         return viewValue === otherValue;
+      };
+      if (isModel) {
+        return scope.$watch(otherNgModelName, function() {
+          return ctrl.$validate();
+        });
+      }
+    }
+  };
+}]);
+
+angular.module('slick-angular-validation').factory('matchi', ["valueHelper", function(valueHelper) {
+  return {
+    link: function(scope, ctrl, otherNgModelName) {
+      var isModel;
+      isModel = valueHelper.isModel(otherNgModelName);
+      ctrl.$validators.matchi = function(modelValue, viewValue) {
+        var otherValue;
+        if (ctrl.$isEmpty(modelValue)) {
+          return true;
+        }
+        otherValue = valueHelper.getValue(scope, isModel, otherNgModelName);
+        return viewValue.toLowerCase() === otherValue.toLowerCase();
       };
       if (isModel) {
         return scope.$watch(otherNgModelName, function() {
@@ -629,29 +697,37 @@ angular.module('slick-angular-validation').factory('requiredif', ["valueHelper",
     link: function(scope, ctrl, otherValue) {
       var isModel, part1IsModel, valueParts, watchers;
       isModel = true;
-      valueParts = otherValue.split('=');
-      if (valueParts.length !== 2) {
-        throw 'Invalid format of requiredif: ' + otherValue;
-      }
-      part1IsModel = valueHelper.isModel(valueParts[1]);
-      ctrl.$validators.requiredif = function(modelValue, viewValue) {
-        var value0, value1;
-        value0 = valueHelper.getValue(scope, isModel, valueParts[0]);
-        value1 = valueHelper.getValue(scope, part1IsModel, valueParts[1]);
-        if (value0 === value1 && ctrl.$isEmpty(modelValue)) {
-          return false;
-        }
-        return true;
-      };
       watchers = [];
+      valueParts = otherValue.split('=');
+      if (valueParts.length === 2) {
+        part1IsModel = valueHelper.isModel(valueParts[1]);
+        ctrl.$validators.requiredif = function(modelValue, viewValue) {
+          var value0, value1;
+          value0 = valueHelper.getValue(scope, isModel, valueParts[0]);
+          value1 = valueHelper.getValue(scope, part1IsModel, valueParts[1]);
+          if (value0 === value1 && ctrl.$isEmpty(modelValue)) {
+            return false;
+          }
+          return true;
+        };
+        if (part1IsModel) {
+          watchers.push(scope.$watch(valueParts[1], function() {
+            return ctrl.$validate();
+          }));
+        }
+      } else {
+        ctrl.$validators.requiredif = function(modelValue, viewValue) {
+          var value0;
+          value0 = valueHelper.getValue(scope, isModel, valueParts[0]);
+          if (value0.length > 0 && ctrl.$isEmpty(modelValue)) {
+            return false;
+          }
+          return true;
+        };
+      }
       watchers.push(scope.$watch(valueParts[0], function() {
         return ctrl.$validate();
       }));
-      if (part1IsModel) {
-        watchers.push(scope.$watch(valueParts[1], function() {
-          return ctrl.$validate();
-        }));
-      }
       return watchers;
     }
   };

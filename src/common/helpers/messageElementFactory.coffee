@@ -12,12 +12,7 @@ angular.module('slick-angular-validation')
     if item.customMessage then return item.customMessage
 
     messageObj = SlickAngularValidation.getMessage(item.key)
-
-    if messageObj.findName
-      name = findNameOfOtherField(element, item.value)
-      if name then return messageObj.message.replace('#value', name)
-
-    messageObj.message.replace('#value', item.value)
+    messageObj.message.replace('#argument', item.value)
   {
     beginContainer: (formCtrlName, modelCtrlName) ->
       '<ul ng-messages="' + formCtrlName + '.'+ modelCtrlName + '.$error" class="slick-angular-validation-messages">'
