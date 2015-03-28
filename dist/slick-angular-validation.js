@@ -32,7 +32,7 @@ angular.module('slick-angular-validation').directive('validate', ["$compile", "$
       item = arr[i];
       watcher = $injector.get(item.key).link(scope, modelCtrl, item.value);
       addWatcher(watcher);
-      messageContainerElement += messageContainerFactory.createMessageFromItem(item, element);
+      messageContainerElement += messageContainerFactory.createMessageFromItem(item);
     }
     messageContainerElement += messageContainerFactory.endContainer();
     return element.after($compile(messageContainerElement)(scope));
@@ -72,20 +72,8 @@ angular.module('slick-angular-validation').factory('dateHelper', function() {
 });
 
 angular.module('slick-angular-validation').factory('messageContainerFactory', ["SlickAngularValidation", function(SlickAngularValidation) {
-  var findNameOfOtherField, getMessage;
-  findNameOfOtherField = function(element, itemValue) {
-    var field, form;
-    form = element.parents('form').first();
-    if (!form.length) {
-      return false;
-    }
-    field = form.find('*[ng-model="' + itemValue + '"]').first();
-    if (!field.length) {
-      return false;
-    }
-    return field.attr('name');
-  };
-  getMessage = function(item, element) {
+  var getMessage;
+  getMessage = function(item) {
     var messageObj;
     if (item.customMessage) {
       return item.customMessage;
@@ -97,8 +85,8 @@ angular.module('slick-angular-validation').factory('messageContainerFactory', ["
     beginContainer: function(formCtrlName, modelCtrlName) {
       return '<ul ng-messages="' + formCtrlName + '.' + modelCtrlName + '.$error" class="slick-angular-validation-messages">';
     },
-    createMessageFromItem: function(item, element) {
-      return '<li ng-message="' + item.key + '">' + getMessage(item, element) + '</li>';
+    createMessageFromItem: function(item) {
+      return '<li ng-message="' + item.key + '">' + getMessage(item) + '</li>';
     },
     endContainer: function() {
       return '</ul>';

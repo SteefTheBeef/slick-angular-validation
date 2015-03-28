@@ -22,7 +22,7 @@ angular.module('slick-angular-validation')
       watcher = $injector.get(item.key).link(scope, modelCtrl, item.value)
       addWatcher(watcher)
 
-      messageContainerElement += messageContainerFactory.createMessageFromItem(item, element)
+      messageContainerElement += messageContainerFactory.createMessageFromItem(item)
 
     messageContainerElement += messageContainerFactory.endContainer()
     element.after($compile(messageContainerElement)(scope))
