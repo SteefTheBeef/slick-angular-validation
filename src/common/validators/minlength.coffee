@@ -6,7 +6,8 @@ angular.module('slick-angular-validation')
       ctrl.$validators.minlength = (modelValue, viewValue) ->
         if ctrl.$isEmpty(modelValue) then return true
 
-        minlen = valueHelper.getValue(scope, isModel, minlength)
+        minlen = parseInt(valueHelper.getValue(scope, isModel, minlength))
+        if isNaN(minlen) then return true
         return viewValue.length >= parseInt(minlen)
 
       if isModel
