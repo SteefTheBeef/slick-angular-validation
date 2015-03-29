@@ -5,5 +5,5 @@ angular.module('slick-angular-validation')
       if Object.prototype.toString.call(date) isnt "[object Date]"
         return false
 
-      !isNaN(test.getTime())
+      not isNaN(date.getTime())
   }

@@ -1,4 +1,4 @@
-app.config( (SlickAngularValidationProvider) ->
+angular.module('slickAngularValidationTestApp').config( (SlickAngularValidationProvider) ->
 
 )
 

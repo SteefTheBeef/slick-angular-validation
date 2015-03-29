@@ -1,5 +1,5 @@
 angular.module('slick-angular-validation')
-.factory 'alphaNumeric', () ->
+.factory 'alphanumeric', () ->
   {
     link: (scope, ctrl) ->
       ctrl.$validators.alphanumeric = (modelValue, viewValue) ->

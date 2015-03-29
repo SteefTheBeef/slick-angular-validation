@@ -66,7 +66,7 @@ angular.module('slick-angular-validation').factory('dateHelper', function() {
       if (Object.prototype.toString.call(date) !== "[object Date]") {
         return false;
       }
-      return !isNaN(test.getTime());
+      return !isNaN(date.getTime());
     }
   };
 });
@@ -279,7 +279,7 @@ angular.module('slick-angular-validation').factory('alphadash', function() {
   };
 });
 
-angular.module('slick-angular-validation').factory('alphaNumeric', function() {
+angular.module('slick-angular-validation').factory('alphanumeric', function() {
   return {
     link: function(scope, ctrl) {
       ctrl.$validators.alphanumeric = function(modelValue, viewValue) {
@@ -320,6 +320,7 @@ angular.module('slick-angular-validation').factory('date', ["dateHelper", functi
     link: function(scope, ctrl) {
       ctrl.$validators.date = function(modelValue, viewValue) {
         var test;
+        console.log(dateHelper);
         if (ctrl.$isEmpty(modelValue)) {
           return true;
         }
@@ -545,8 +546,11 @@ angular.module('slick-angular-validation').factory('maxlength', ["valueHelper", 
         if (ctrl.$isEmpty(modelValue)) {
           return true;
         }
-        maxlen = valueHelper.getValue(scope, isModel, maxlength);
-        return viewValue.length <= parseInt(maxlen);
+        maxlen = parseInt(valueHelper.getValue(scope, isModel, maxlength));
+        if (isNaN(maxlen)) {
+          return true;
+        }
+        return viewValue.length <= maxlen;
       };
       if (isModel) {
         return scope.$watch(maxlength, function() {
@@ -625,7 +629,10 @@ angular.module('slick-angular-validation').factory('minlength', ["valueHelper", 
         if (ctrl.$isEmpty(modelValue)) {
           return true;
         }
-        minlen = valueHelper.getValue(scope, isModel, minlength);
+        minlen = parseInt(valueHelper.getValue(scope, isModel, minlength));
+        if (isNaN(minlen)) {
+          return true;
+        }
         return viewValue.length >= parseInt(minlen);
       };
       if (isModel) {

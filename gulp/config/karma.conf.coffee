@@ -1,5 +1,4 @@
 module.exports = (config) ->
-  console.log config
   config.set
     preprocessors: {
       '../../src/**/*.coffee': ['coffee']
@@ -21,20 +20,23 @@ module.exports = (config) ->
     basePath: ''
     files: [
       '../../bower_components/angular/angular.js'
+      '../../bower_components/angular-messages/angular-messages.js'
       '../../bower_components/angular-mocks/angular-mocks.js'
-      '../../src/config/registerModules.coffee'
-      '../../src/**/*.coffee'
+      '../../src/config/registerModulesForBuild.coffee'
+      '../../src/common/helpers/*.coffee'
+      '../../src/common/validators/*.coffee'
+      #'../../src/**/*.coffee'
+      '../../src/tests/validators/ValidatorTestHelper.coffee'
       '../../src/**/*.spec.coffee'
     ],
-    frameworks: ['jasmine', 'browserify']
-    browsers: ['PhantomJS']
+    frameworks: ['jasmine']
+    browsers: ['Chrome']
     port: 9876,
     captureTimeout: 20000,
     singleRun: false,
     reportSlowerThan: 500
     LogLevel: config.LOG_DEBUG,
     plugins: [
-      'karma-browserify'
       'karma-jasmine'
       'karma-chrome-launcher'
       'karma-phantomjs-launcher'

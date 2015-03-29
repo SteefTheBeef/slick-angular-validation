@@ -6,15 +6,9 @@
     "type": "git",
     "url": "git://github.com/SteefTheBeef/gulangco-plate"
   },
-  "browserify": {
-    "transform": [
-      "coffeeify"
-    ]
-  },
   "dependencies": {
     "angular": "^1.3.14",
     "bower": "*",
-    "browserify": "^9.0.3",
     "del": "*",
     "gulp": "*"
   },
