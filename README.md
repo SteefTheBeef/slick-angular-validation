@@ -261,7 +261,8 @@ app.config(["SlickAngularValidationProvider", function (SlickAngularValidationPr
 ```
 
 ## TODO
-Tests
+* Complete the tests
+* dynamic error messages
 
 ## License
 MIT
