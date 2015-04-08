@@ -10,8 +10,8 @@ angular.module('slick-angular-validation')
         otherValue = valueHelper.getValue(scope, isModel, argument)
         viewValue isnt otherValue
 
-        if isModel
-          return scope.$watch argument, () -> ctrl.$validate()
+      if isModel
+        return scope.$watch argument, () -> ctrl.$validate()
 
       return
   }

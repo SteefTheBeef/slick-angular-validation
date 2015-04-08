@@ -8,6 +8,23 @@ class ValidatorTestHelper
         not isNaN(date.getTime())
     }
 
+  getMockedValueHelper: () =>
+    startsWithDigit = (val) ->
+      /^[0-9]+/.test(val)
+    {
+      isModel: (val) ->
+        if startsWithDigit(val)
+          return false
+
+        not /^\'|\'$/.test(val)
+
+      getValue: (scope, isModel, val) =>
+        if isModel then return @$parse(val)(scope)
+        if startsWithDigit(val)
+          return val
+        val.substring(1, val.length-1)
+    }
+
   getMockedModelCtrl: () ->
     {
       $isEmpty: (value) ->
@@ -31,11 +48,12 @@ class ValidatorTestHelper
   inject: (validator) ->
       inject ($injector) =>
         @$rootScope =  $injector.get('$rootScope')
+        @$parse = $injector.get('$parse')
         @validator = $injector.get(validator)
 
   link: (argument) ->
-    scope = @$rootScope.$new()
-    @validator.link(scope, @modelCtrl, argument)
+    @scope = @$rootScope.$new()
+    @validator.link(@scope, @modelCtrl, argument)
 
   validate: (viewValue) ->
     @modelCtrl.$validators[@validatorName](viewValue, viewValue)
