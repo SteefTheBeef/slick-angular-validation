@@ -9,7 +9,7 @@ Slick form validation for your AngularJS apps.
 * Add slick-angular-validation as a dependency:  `angular.module('YourApp', ['slick-angular-validation',...]);`
 
 ## Dependencies
-* AngularJS, obviously
+* AngularJS,
 * jQuery
 * ngMessages, angular module 
 
@@ -259,10 +259,6 @@ app.config(["SlickAngularValidationProvider", function (SlickAngularValidationPr
   SlickAngularValidationProvider.setMessage('customvalidator', 'only custom values thanks!');
 }])
 ```
-
-## TODO
-* Complete the tests
-* dynamic error messages
 
 ## License
 MIT
