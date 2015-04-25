@@ -320,7 +320,6 @@ angular.module('slick-angular-validation').factory('date', ["dateHelper", functi
     link: function(scope, ctrl) {
       ctrl.$validators.date = function(modelValue, viewValue) {
         var test;
-        console.log(dateHelper);
         if (ctrl.$isEmpty(modelValue)) {
           return true;
         }
@@ -342,13 +341,13 @@ angular.module('slick-angular-validation').factory('different', ["valueHelper", 
           return true;
         }
         otherValue = valueHelper.getValue(scope, isModel, argument);
-        viewValue !== otherValue;
-        if (isModel) {
-          return scope.$watch(argument, function() {
-            return ctrl.$validate();
-          });
-        }
+        return viewValue !== otherValue;
       };
+      if (isModel) {
+        return scope.$watch(argument, function() {
+          return ctrl.$validate();
+        });
+      }
     }
   };
 }]);
@@ -364,13 +363,13 @@ angular.module('slick-angular-validation').factory('differenti', ["valueHelper",
           return true;
         }
         otherValue = valueHelper.getValue(scope, isModel, otherNgModelName);
-        viewValue.toLowerCase() !== otherValue.toLowerCase();
-        if (isModel) {
-          return scope.$watch(otherNgModelName, function() {
-            return ctrl.$validate();
-          });
-        }
+        return viewValue.toLowerCase() !== otherValue.toLowerCase();
       };
+      if (isModel) {
+        return scope.$watch(otherNgModelName, function() {
+          return ctrl.$validate();
+        });
+      }
     }
   };
 }]);
@@ -378,7 +377,7 @@ angular.module('slick-angular-validation').factory('differenti', ["valueHelper",
 angular.module('slick-angular-validation').factory('email', function() {
   return {
     link: function(scope, ctrl) {
-      ctrl.$validators.max = function(modelValue, viewValue) {
+      ctrl.$validators.email = function(modelValue, viewValue) {
         var regex;
         if (ctrl.$isEmpty(modelValue)) {
           return true;
