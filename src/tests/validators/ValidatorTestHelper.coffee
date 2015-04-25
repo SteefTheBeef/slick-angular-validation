@@ -16,7 +16,10 @@ class ValidatorTestHelper
         if startsWithDigit(val)
           return false
 
-        not /^\'|\'$/.test(val)
+        if /^\'|\'$/.test(val)
+          return false
+
+        true
 
       getValue: (scope, isModel, val) =>
         if isModel then return @$parse(val)(scope)
