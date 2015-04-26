@@ -71,7 +71,7 @@ angular.module('slick-angular-validation').factory('dateHelper', function() {
   };
 });
 
-angular.module('slick-angular-validation').factory('messageContainerFactory', ["SlickAngularValidation", function(SlickAngularValidation) {
+angular.module('slick-angular-validation').factory('messageContainerFactory', ["SlickAngularValidation", "valueHelper", function(SlickAngularValidation, valueHelper) {
   var getMessage;
   getMessage = function(item) {
     var messageObj;
@@ -79,7 +79,11 @@ angular.module('slick-angular-validation').factory('messageContainerFactory', ["
       return item.customMessage;
     }
     messageObj = SlickAngularValidation.getMessage(item.key);
-    return messageObj.message.replace('#argument', item.value);
+    if (valueHelper.isModel(item.value)) {
+      return messageObj.message.replace('#argument', '{{' + item.value + '}}');
+    } else {
+      return messageObj.message.replace('#argument', item.value);
+    }
   };
   return {
     beginContainer: function(formCtrlName, modelCtrlName) {
