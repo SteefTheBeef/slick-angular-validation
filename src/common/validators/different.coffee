@@ -5,6 +5,7 @@ angular.module('slick-angular-validation')
       isModel = valueHelper.isModel(argument)
 
       ctrl.$validators.different = (modelValue, viewValue) ->
+        if ctrl.$pristine then return true;
         if ctrl.$isEmpty(modelValue) then return true
 
         otherValue = valueHelper.getValue(scope, isModel, argument)
