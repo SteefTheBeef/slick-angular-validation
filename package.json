@@ -1,16 +1,13 @@
 {
   "author": "Stefan Hellström",
-  "name": "gulangco-plate",
-  "description": "Yupp, yet another AngularJS project boilerplate and build tool!",
+  "name": "slick-angular-validation",
+  "description": "Super easy validation for your AngularJS project",
   "repository": {
     "type": "git",
-    "url": "git://github.com/SteefTheBeef/gulangco-plate"
+    "url": "git://github.com/SteefTheBeef/slick-angular-validation"
   },
   "dependencies": {
-    "angular": "^1.3.14",
-    "bower": "*",
-    "del": "*",
-    "gulp": "*"
+    "angular": "^1.3.14"
   },
   "devDependencies": {
     "angular-mocks": "^1.3.14",
@@ -41,6 +38,9 @@
     "phantomjs": "*",
     "require-dir": "^0.1.0",
     "stream-series": "^0.1.1",
-    "vinyl-source-stream": "^1.0.0"
+    "vinyl-source-stream": "^1.0.0",
+    "bower": "*",
+    "del": "*",
+    "gulp": "*"
   }
 }

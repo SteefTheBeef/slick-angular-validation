@@ -3,7 +3,7 @@ angular.module('slick-angular-validation')
   process = (attrs) ->
     customMessages = {}
     if attrs.validateMessages
-      attrs.messages.split('|').forEach (message) ->
+      attrs.validateMessages.split('|').forEach (message) ->
         parts = message.split(':')
         throw "Validation message attributes incorrect: " + message unless parts.length is 2
         customMessages[parts[0]] = parts[1]

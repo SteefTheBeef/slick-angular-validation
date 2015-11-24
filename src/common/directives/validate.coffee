@@ -13,7 +13,6 @@ angular.module('slick-angular-validation')
     unless modelCtrl.$name then throw 'missing attribute \'name\''
     unless formCtrl.$name then throw 'missing attribute \'name\' on parent form element'
 
-
   bindValidatorsAndCreateMessageContainer = (scope, element, formCtrl, modelCtrl, attrs) ->
     messageContainerElement = messageContainerFactory.beginContainer(formCtrl.$name, modelCtrl.$name)
     arr = validateAttributeHelper.toObject(attrs)
@@ -21,7 +20,6 @@ angular.module('slick-angular-validation')
     for item in arr
       watcher = $injector.get(item.key).link(scope, modelCtrl, item.value)
       addWatcher(watcher)
-
       messageContainerElement += messageContainerFactory.createMessageFromItem(item)
 
     messageContainerElement += messageContainerFactory.endContainer()

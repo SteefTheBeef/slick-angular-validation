@@ -104,7 +104,7 @@ angular.module('slick-angular-validation').factory('validateAttributeHelper', fu
     var customMessages;
     customMessages = {};
     if (attrs.validateMessages) {
-      attrs.messages.split('|').forEach(function(message) {
+      attrs.validateMessages.split('|').forEach(function(message) {
         var parts;
         parts = message.split(':');
         if (parts.length !== 2) {
@@ -541,6 +541,9 @@ angular.module('slick-angular-validation').factory('maxdate', ["valueHelper", "d
 
 angular.module('slick-angular-validation').factory('maxlength', ["valueHelper", function(valueHelper) {
   return {
+    validate: function(scope, ctrl, maxlength) {
+      return console.log(ctrl);
+    },
     link: function(scope, ctrl, maxlength) {
       var isModel;
       isModel = valueHelper.isModel(maxlength);

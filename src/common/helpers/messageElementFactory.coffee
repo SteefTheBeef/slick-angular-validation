@@ -10,7 +10,7 @@ angular.module('slick-angular-validation')
       messageObj.message.replace('#argument', item.value)
   {
     beginContainer: (formCtrlName, modelCtrlName) ->
-      '<ul ng-messages="' + formCtrlName + '.'+ modelCtrlName + '.$error" class="slick-angular-validation-messages">'
+      '<ul ng-messages="' +  formCtrlName + '.'+ modelCtrlName + '.$error" class="slick-angular-validation-messages">'
 
     createMessageFromItem: (item) ->
       '<li ng-message="' + item.key + '">' + getMessage(item) + '</li>'
