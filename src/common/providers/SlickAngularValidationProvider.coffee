@@ -30,12 +30,17 @@ angular.module('slick-angular-validation')
   }
 
   @setMessage = (key, message) ->
-    this.messages[key] = { message : message}
+    @messages[key] = { message : message}
+
+  @setMessageLevel = (level) ->
+    @messageLevel = level;
 
   @$get = () ->
     {
       getMessage: (key) =>
         @messages[key]
+      getMessageLevel: () =>
+        @messageLevel
     }
 
   return

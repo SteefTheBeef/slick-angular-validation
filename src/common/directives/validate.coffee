@@ -1,5 +1,5 @@
 angular.module('slick-angular-validation')
-.directive 'validate', ($compile, $injector, validateAttributeHelper, messageContainerFactory) ->
+.directive 'validate', ($compile, $injector, validateAttributeHelper, messageContainerFactory, SlickAngularValidation) ->
   unwatchers = []
 
   addWatcher = (watcher) ->
@@ -13,13 +13,17 @@ angular.module('slick-angular-validation')
     unless modelCtrl.$name then throw 'missing attribute \'name\''
     unless formCtrl.$name then throw 'missing attribute \'name\' on parent form element'
 
-  bindValidatorsAndCreateMessageContainer = (scope, element, formCtrl, modelCtrl, attrs) ->
+  bindValidators = (scope, modelCtrl, attrs) ->
+    arr = validateAttributeHelper.toObject(attrs)
+    for item in arr
+      watcher = $injector.get(item.key).link(scope, modelCtrl, item.value)
+      addWatcher(watcher)
+
+  createMessageContainer = (scope, element, formCtrl, modelCtrl, attrs) ->
     messageContainerElement = messageContainerFactory.beginContainer(formCtrl.$name, modelCtrl.$name)
     arr = validateAttributeHelper.toObject(attrs)
 
     for item in arr
-      watcher = $injector.get(item.key).link(scope, modelCtrl, item.value)
-      addWatcher(watcher)
       messageContainerElement += messageContainerFactory.createMessageFromItem(item)
 
     messageContainerElement += messageContainerFactory.endContainer()
@@ -33,8 +37,11 @@ angular.module('slick-angular-validation')
       formCtrl = ctrls[1]
 
       validateCtrlNames(formCtrl, modelCtrl)
+      bindValidators(scope, modelCtrl, attrs)
 
-      bindValidatorsAndCreateMessageContainer(scope, element, formCtrl, modelCtrl, attrs)
+      if SlickAngularValidation.getMessageLevel() isnt 0
+        createMessageContainer(scope, element, formCtrl, modelCtrl, attrs)
+
       element.removeAttr('validate')
 
       scope.$on '$destroy', () ->
