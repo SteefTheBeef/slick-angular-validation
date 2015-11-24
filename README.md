@@ -10,7 +10,6 @@ Slick form validation for your AngularJS apps.
 
 ## Dependencies
 * AngularJS,
-* jQuery
 * ngMessages, angular module 
 
 ## How it works
@@ -56,6 +55,13 @@ app.config(["SlickAngularValidationProvider", function (SlickAngularValidationPr
   SlickAngularValidationProvider.setMessage('alphanumeric', 'Only letters and numbers!');
   // note that #argument is replaced by the value of the argument when used
   SlickAngularValidationProvider.setMessage('minlength', 'minimum length of field is #argument');
+}])
+```
+
+#### Turn off all error messages
+```JavaScript
+app.config(["SlickAngularValidationProvider", function (SlickAngularValidationProvider) {
+  SlickAngularValidationProvider.setMessageLevel(0);
 }])
 ```
 
