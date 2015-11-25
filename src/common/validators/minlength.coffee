@@ -4,10 +4,15 @@ angular.module('slick-angular-validation')
     link: (scope, ctrl, minlength) ->
       isModel = valueHelper.isModel(minlength)
       ctrl.$validators.minlength = (modelValue, viewValue) ->
-        if ctrl.$pristine then return true;
+
         if ctrl.$isEmpty(modelValue) then return true
 
-        minlen = parseInt(valueHelper.getValue(scope, isModel, minlength))
+        rawValue = valueHelper.getValue(scope, isModel, minlength);
+        if isModel and rawValue
+          minlen = parseInt(rawValue.length);
+        else
+          minlen = parseInt(rawValue);
+
         if isNaN(minlen) then return true
         return viewValue.length >= parseInt(minlen)
 

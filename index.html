@@ -28,20 +28,23 @@
 <body>
     <div class="container">
         <form name="form" novalidate>
-            <label for="required">Required</label>
-            <input type="text" ng-model="data.keff" name="keff" validate="required|maxlength:10" id="required" ng-model-options="{ updateOn: 'blur' }"/>
+            <label for="required">Required (model:data.required, validate: required)</label>
+            <input type="text" ng-model="data.required" name="required" validate="required" id="required" ng-model-options="{ updateOn: 'blur' }"/>
 
-            <label for="">Keff2</label>
-            <input type="text" ng-model="data.keff2" name="keff2" />
+            <label for="">maxlength (ng-model="data.maxlength1", validate="maxlength:data.required")</label>
+            <input type="text" ng-model="data.maxlength1" name="maxlength1" validate="maxlength:data.required"/>
 
-            <label for="">instring</label>
-            <input type="text" ng-model="data.doh" name="doh" validate="maxlength:data.keff"/>
+            <label for="">maxlength:3</label>
+            <input type="text" ng-model="data.maxlength2" name="num" validate="maxlength:3"/>
 
-            <label for="">number</label>
-            <input type="text" ng-model="data.num" name="num" validate="maxlength:3" validate-messages="maxlength:ffd"/>
+            <label for="">minlength (ng-model="data.maxlength1", validate="minlength:data.required")</label>
+            <input type="text" ng-model="data.minlength1" name="minlength1" validate="minlength:data.required"/>
+
+            <label for="">minlength:3</label>
+            <input type="text" ng-model="data.minlength2" name="minlength2" validate="minlength:3"/>
 
             <label for="">required if</label>
-            <input type="text" ng-model="data.gdfgdf" name="requiredif" validate="requiredif:data.keff=data.keff2"/>
+            <input type="text" ng-model="data.gdfgdf" name="requiredif" validate="requiredif:data.required=data.maxlength1"/>
 
             <label class="checkbox" for="acc">Accepted</label>
             <input type="checkbox" ng-model="data.test" name="accepted" validate="accepted" id="acc"/>

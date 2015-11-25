@@ -13,6 +13,18 @@ angular.module('slick-angular-validation')
     unless modelCtrl.$name then throw 'missing attribute \'name\''
     unless formCtrl.$name then throw 'missing attribute \'name\' on parent form element'
 
+  setValidateOnBlur = (modelCtrl) ->
+    modelCtrl.$$setOptions({
+      updateOn: 'blur',
+      updateOnDefault: false
+    });
+
+  setValidateOn = (modelCtrl, attrs) ->
+    if attrs.validateOn is 'blur'
+      setValidateOnBlur(modelCtrl);
+    if SlickAngularValidation.getValidateOn() is 'blur'
+      setValidateOnBlur(modelCtrl);
+
   bindValidators = (scope, modelCtrl, attrs) ->
     arr = validateAttributeHelper.toObject(attrs)
     for item in arr
@@ -37,6 +49,7 @@ angular.module('slick-angular-validation')
       formCtrl = ctrls[1]
 
       validateCtrlNames(formCtrl, modelCtrl)
+      setValidateOn(modelCtrl, attrs);
       bindValidators(scope, modelCtrl, attrs)
 
       if SlickAngularValidation.getMessageLevel() isnt 0

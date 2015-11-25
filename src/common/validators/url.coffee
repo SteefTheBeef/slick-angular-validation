@@ -20,7 +20,6 @@ angular.module('slick-angular-validation')
   {
     link: (scope, ctrl) ->
       ctrl.$validators.url = (modelValue, viewValue) ->
-        if ctrl.$pristine then return true;
         if ctrl.$isEmpty(modelValue) then return true
 
         urlRegex.test(viewValue)

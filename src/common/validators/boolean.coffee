@@ -3,7 +3,6 @@ angular.module('slick-angular-validation')
   {
     link: (scope, ctrl) ->
       ctrl.$validators.boolean = (modelValue, viewValue) ->
-        if ctrl.$pristine then return true;
         if ctrl.$isEmpty(modelValue) then return true
 
         switch viewValue.toLowerCase()

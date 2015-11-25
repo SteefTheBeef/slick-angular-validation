@@ -4,7 +4,6 @@ angular.module('slick-angular-validation')
     link: (scope, ctrl, minValue) ->
       isModel = valueHelper.isModel(minValue)
       ctrl.$validators.min = (modelValue, viewValue) ->
-        if ctrl.$pristine then return true;
         if ctrl.$isEmpty(modelValue) then return true
 
         parsedViewValue = parseFloat(viewValue)

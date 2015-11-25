@@ -10,7 +10,6 @@ angular.module('slick-angular-validation')
         part1IsModel = valueHelper.isModel(valueParts[1])
 
         ctrl.$validators.requiredif = (modelValue, viewValue) ->
-          if ctrl.$pristine then return true;
           value0 = valueHelper.getValue(scope, isModel, valueParts[0])
           value1 = valueHelper.getValue(scope, part1IsModel, valueParts[1])
           if value0 is value1 and ctrl.$isEmpty(modelValue)

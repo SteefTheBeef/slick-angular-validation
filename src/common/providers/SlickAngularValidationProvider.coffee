@@ -35,12 +35,14 @@ angular.module('slick-angular-validation')
   @setMessageLevel = (level) ->
     @messageLevel = level;
 
+  @setValidateOn = (validateOn) ->
+    @validateOn = validateOn;
+
   @$get = () ->
     {
-      getMessage: (key) =>
-        @messages[key]
-      getMessageLevel: () =>
-        @messageLevel
+      getMessage: (key) => @messages[key]
+      getMessageLevel: () => @messageLevel
+      getValidateOn: () => @validateOn
     }
 
   return

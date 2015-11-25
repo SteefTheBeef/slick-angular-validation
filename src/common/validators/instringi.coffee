@@ -4,7 +4,6 @@ angular.module('slick-angular-validation')
     link: (scope, ctrl, haystack) ->
       isModel = valueHelper.isModel(haystack)
       ctrl.$validators.instringi = (modelValue, viewValue) ->
-        if ctrl.$pristine then return true;
         if ctrl.$isEmpty(modelValue) then return true
 
         value = valueHelper.getValue(scope, isModel, haystack)

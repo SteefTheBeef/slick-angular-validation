@@ -4,7 +4,6 @@ angular.module('slick-angular-validation')
     link: (scope, ctrl, otherDate) ->
       isModel = valueHelper.isModel(otherDate)
       ctrl.$validators.maxdate = (modelValue, viewValue) ->
-        if ctrl.$pristine then return true;
         if ctrl.$isEmpty(modelValue) then return true
 
         viewValueDate = new Date(viewValue)
