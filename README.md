@@ -64,6 +64,19 @@ app.config(["SlickAngularValidationProvider", function (SlickAngularValidationPr
   SlickAngularValidationProvider.setMessageLevel(0);
 }])
 ```
+## Validate On
+#### Per field
+Default is to validate when the model changes. However, validate on blur is also supported. 
+```html
+<input type="text" name="blurme" ng-model="data.blurme" validate="minlength:3" validate-on="blur">`
+```
+`ng-model-options="{ updateOn: 'blur' }"` does the exact same thing, but requires more text!
+#### Globally
+```JavaScript
+app.config(["SlickAngularValidationProvider", function (SlickAngularValidationProvider) {
+  SlickAngularValidationProvider.setValidateOn('blur);
+}])
+```
 
 ## Validators
 
